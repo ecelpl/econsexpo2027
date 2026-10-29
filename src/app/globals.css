@@ -5,11 +5,14 @@
   --paper: #f1f4ef;
   --paper-2: #e6ebe4;
   --ink: #13251e;
-  --ink-2: #0d1a15;
+  --ink-2: #0b2a1c;
+  --forest: #10402b;
+  --leaf: #2f8f5b;
+  --mint: #9be3b7;
   --ink-soft: #4f625a;
   --green: #1f5e3b;
   --marker: #4a3bd6;
-  --marker-light: #a49bff;
+  --marker-light: #9be3b7;
   --red: #d4432e;
   --rule: #cfd8d1;
 
@@ -83,7 +86,7 @@ button {
   border-radius: 2px;
 }
 ::selection {
-  background: var(--marker);
+  background: var(--green);
   color: #fff;
 }
 
@@ -185,11 +188,11 @@ button {
   transform: translateY(-2px);
 }
 .btn--ink {
-  background: var(--ink);
+  background: var(--green);
   color: var(--paper);
 }
 .btn--ink:hover {
-  background: var(--marker);
+  background: var(--forest);
 }
 .btn--line {
   border-color: var(--ink);
@@ -208,7 +211,7 @@ button {
   color: var(--ink);
 }
 .btn--paper:hover {
-  background: var(--marker-light);
+  background: var(--mint);
 }
 .btn--line-light {
   border-color: rgba(241, 244, 239, 0.5);
@@ -260,9 +263,7 @@ button {
 }
 .nav.is-scrolled,
 .nav.is-open {
-  background: rgba(241, 244, 239, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(241, 244, 239, 0.96);
   box-shadow: 0 1px 0 var(--rule);
 }
 .nav__bar {
@@ -308,7 +309,7 @@ button {
   right: 0;
   bottom: 0;
   height: 2px;
-  background: var(--marker);
+  background: var(--green);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.4s var(--ease-out);
@@ -399,7 +400,7 @@ button {
   color: var(--paper);
 }
 .nav[data-dark].is-scrolled:not(.is-open) {
-  background: rgba(13, 26, 21, 0.55);
+  background: rgba(11, 42, 28, 0.92);
   box-shadow: 0 1px 0 rgba(241, 244, 239, 0.08);
 }
 .nav[data-dark]:not(.is-open) .nav__year {
@@ -425,31 +426,26 @@ button {
 }
 
 /* ---------------- Texture ---------------- */
-body::after {
-  content: "";
-  position: fixed;
-  inset: -50%;
-  z-index: 80;
-  pointer-events: none;
-  opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 1.2s steps(6) infinite;
+:root {
+  /* Film grain, painted once into section backgrounds rather than as a moving overlay. */
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(-3%, 2%); }
-  40% { transform: translate(2%, -4%); }
-  60% { transform: translate(-4%, -1%); }
-  80% { transform: translate(3%, 3%); }
+.hero__sticky,
+.xp,
+.rt,
+.close,
+.foot,
+.ld {
+  background-image: var(--noise);
 }
 .paper-grid {
   position: relative;
   overflow: clip;
   background-color: var(--paper);
-  background-image: linear-gradient(rgba(19, 37, 30, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 37, 30, 0.055) 1px, transparent 1px);
-  background-size: 36px 36px;
-  background-position: -1px -1px;
+  background-image: var(--noise), linear-gradient(rgba(31, 94, 59, 0.085) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 94, 59, 0.085) 1px, transparent 1px);
+  background-size: 180px 180px, 36px 36px, 36px 36px;
+  background-position: 0 0, -1px -1px, -1px -1px;
 }
 .paper-grid > :not(.curves) {
   position: relative;
@@ -465,8 +461,8 @@ body::after {
 }
 .curves path {
   fill: none;
-  stroke: var(--marker);
-  stroke-opacity: 0.16;
+  stroke: var(--green);
+  stroke-opacity: 0.2;
   stroke-width: 2;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
@@ -505,14 +501,14 @@ body::after {
   width: 64px;
   height: 64px;
   margin: -32px 0 0 -32px;
-  background: rgba(74, 59, 214, 0.1);
+  background: rgba(31, 94, 59, 0.12);
 }
 .cursor.is-label {
   width: 92px;
   height: 92px;
   margin: -46px 0 0 -46px;
-  background: var(--marker);
-  border-color: var(--marker);
+  background: var(--green);
+  border-color: var(--green);
 }
 .cursor__label {
   font-family: var(--f-display);
@@ -603,7 +599,7 @@ html.ee-intro .ld {
 .hero {
   position: relative;
   height: 230svh;
-  background: var(--ink-2);
+  background: var(--forest);
   color: var(--paper);
 }
 .hero__sticky {
@@ -611,9 +607,9 @@ html.ee-intro .ld {
   top: 0;
   height: 100svh;
   overflow: hidden;
-  background-image: linear-gradient(rgba(241, 244, 239, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(241, 244, 239, 0.045) 1px, transparent 1px);
-  background-size: 36px 36px;
+  background-image: var(--noise), linear-gradient(rgba(241, 244, 239, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(241, 244, 239, 0.05) 1px, transparent 1px);
+  background-size: 180px 180px, 36px 36px, 36px 36px;
 }
 .hero__frame {
   position: absolute;
@@ -633,7 +629,7 @@ html.ee-intro .ld {
 .hero__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(13, 26, 21, 0.6) 0%, rgba(13, 26, 21, 0.1) 32%, rgba(13, 26, 21, 0.25) 55%, rgba(13, 26, 21, 0.88) 100%);
+  background: linear-gradient(180deg, rgba(9, 38, 25, 0.6) 0%, rgba(9, 38, 25, 0.1) 32%, rgba(9, 38, 25, 0.25) 55%, rgba(9, 38, 25, 0.88) 100%);
 }
 .hero__copy {
   position: absolute;
@@ -836,12 +832,12 @@ html.ee-intro .ld {
   padding-block: 10px;
 }
 .tk__row--0 {
-  background: var(--ink);
+  background: var(--ink-2);
   color: var(--paper);
   rotate: -2deg;
 }
 .tk__row--1 {
-  background: var(--marker);
+  background: var(--leaf);
   color: #fff;
   rotate: 1.4deg;
   margin-top: -6px;
@@ -893,7 +889,7 @@ html.ee-intro .ld {
   stroke: var(--marker-light);
 }
 .tk__row--1 .tk__doodle path {
-  stroke: var(--paper);
+  stroke: var(--ink-2);
 }
 
 /* ---------------- Intro ---------------- */
@@ -1057,7 +1053,7 @@ html.ee-intro .ld {
 /* ---------------- Experiences ---------------- */
 .xp {
   position: relative;
-  background: var(--ink-2);
+  background: var(--forest);
   color: var(--paper);
   padding-top: clamp(96px, 14vh, 180px);
 }
@@ -1100,13 +1096,7 @@ html.ee-intro .ld {
 .xp__bg img {
   object-fit: cover;
 }
-.xp__bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(13, 26, 21, 0.94) 0%, rgba(13, 26, 21, 0.78) 42%, rgba(13, 26, 21, 0.35) 100%),
-    linear-gradient(0deg, rgba(13, 26, 21, 0.8), transparent 30%);
-}
+/* The reading shade is baked into the -shaded photos (scripts/shade.mjs). */
 .xp__num {
   position: absolute;
   right: 1vw;
@@ -1291,7 +1281,10 @@ html.ee-intro .ld {
     padding-top: 40px;
   }
   .xp__bg::after {
-    background: linear-gradient(180deg, rgba(13, 26, 21, 0.5) 0%, rgba(13, 26, 21, 0.92) 45%);
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(9, 38, 25, 0.1) 0%, rgba(9, 38, 25, 0.8) 45%);
   }
   .xp__num {
     top: 8px;
@@ -1473,7 +1466,7 @@ html.ee-intro .ld {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1.5px solid var(--ink);
+  border-top: 2px solid var(--green);
 }
 .crew__row {
   position: relative;
@@ -1493,7 +1486,7 @@ html.ee-intro .ld {
   font-family: var(--f-display);
   font-weight: 600;
   font-size: 15px;
-  color: var(--marker);
+  color: var(--green);
 }
 .crew__thumb {
   width: clamp(56px, 6vw, 88px);
@@ -1518,7 +1511,7 @@ html.ee-intro .ld {
 .crew__row:hover .crew__name,
 .crew__row:focus-visible .crew__name {
   transform: translateX(28px);
-  color: var(--marker);
+  color: var(--green);
 }
 .crew__role {
   font-size: clamp(18px, 1.6vw, 24px);
@@ -1679,7 +1672,7 @@ html.ee-intro .ld {
   overflow: visible;
 }
 .profile::backdrop {
-  background: rgba(13, 26, 21, 0.55);
+  background: rgba(9, 38, 25, 0.55);
   backdrop-filter: blur(6px);
 }
 .profile[open] .profile__card {
@@ -1823,7 +1816,7 @@ html.ee-intro .ld {
 .rt__veil {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 30% 40%, rgba(13, 26, 21, 0.35), rgba(13, 26, 21, 0.85) 75%), rgba(13, 26, 21, 0.35);
+  background: radial-gradient(ellipse at 30% 40%, rgba(9, 38, 25, 0.35), rgba(9, 38, 25, 0.85) 75%), rgba(9, 38, 25, 0.35);
 }
 .rt__content {
   position: relative;
@@ -1907,7 +1900,7 @@ html.ee-intro .ld {
   width: 76px;
   height: 76px;
   border-radius: 50%;
-  background: var(--marker);
+  background: var(--leaf);
   transition: transform 0.5s var(--ease-out), background-color 0.3s;
 }
 .rt__play::before {
@@ -1929,7 +1922,7 @@ html.ee-intro .ld {
 }
 .rt__film:hover .rt__play {
   transform: scale(1.1);
-  background: #5b4ce6;
+  background: #37a86a;
 }
 @keyframes pulse {
   from {
@@ -2076,7 +2069,7 @@ html.ee-intro .ld {
   margin-left: 0.08em;
   font-size: 1.3em;
   font-weight: 700;
-  color: var(--red);
+  color: var(--leaf);
   line-height: 0;
 }
 .spk__body {
@@ -2106,7 +2099,7 @@ html.ee-intro .ld {
 }
 .spk__card:hover {
   background: #fff;
-  border-color: var(--marker);
+  border-color: var(--green);
 }
 .spk__card:nth-child(2) {
   margin-top: 48px;
@@ -2118,7 +2111,7 @@ html.ee-intro .ld {
   font-family: var(--f-display);
   font-weight: 700;
   font-size: 15px;
-  color: var(--marker);
+  color: var(--green);
 }
 .spk__seat {
   width: 72%;
@@ -2173,7 +2166,7 @@ html.ee-intro .ld {
 .close__veil {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(13, 26, 21, 0.7) 0%, rgba(13, 26, 21, 0.45) 45%, rgba(13, 26, 21, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(9, 38, 25, 0.7) 0%, rgba(9, 38, 25, 0.45) 45%, rgba(9, 38, 25, 0.9) 100%);
 }
 .close__inner {
   position: relative;
@@ -2240,7 +2233,7 @@ html.ee-intro .ld {
 
 /* ---------------- Footer ---------------- */
 .foot {
-  background: var(--ink-2);
+  background: var(--forest);
   color: #c8d4cd;
   padding-block: 64px 28px;
   font-size: 16px;
@@ -2544,4 +2537,37 @@ html.ee-intro .ld {
   .portrait:focus-visible .portrait__ring path {
     stroke-dashoffset: 0;
   }
+}
+
+/* ---------------- Performance ----------------
+   Everything that moves while scrolling gets its own layer, so scrolling only composites. */
+.hero__media,
+.hero__copy,
+.xp__track,
+.xp__bg img,
+.xp__num,
+.intro__ph,
+.intro__board img,
+.curves,
+.rt__frame,
+.rt__year,
+.crew__group img,
+.close__bg video,
+.tk__inner {
+  will-change: transform;
+}
+.hero__frame,
+.rt__media {
+  will-change: clip-path;
+}
+/* Full-screen gradients over moving photos: rasterise once, then only composite. */
+.hero__shade,
+.rt__veil,
+.close__veil {
+  will-change: transform;
+  transform: translateZ(0);
+}
+.rt__bg,
+.hero__sticky {
+  contain: paint;
 }

@@ -31,7 +31,7 @@ export function Ticker() {
     const el = root.current!;
     const inners = el.querySelectorAll<HTMLElement>(".tk__inner");
     const anims = Array.from(inners).flatMap((n) => n.getAnimations());
-    const skew = gsap.quickTo(inners, "skewX", { duration: 0.4, ease: "power3.out" });
+    const skew = gsap.quickTo(el.querySelectorAll(".tk__row"), "skewX", { duration: 0.4, ease: "power3.out" });
     const st = ScrollTrigger.create({
       trigger: el,
       start: "top bottom",

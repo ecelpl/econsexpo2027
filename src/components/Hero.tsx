@@ -22,9 +22,12 @@ export function Hero() {
     const reduce = prefersReducedMotion();
     const small = window.matchMedia("(max-width: 700px)").matches;
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    // Only decode the reel while the hero is on screen.
+    let io: IntersectionObserver | undefined;
     if (!reduce && !saveData) {
       v.src = asset(`/media/video/hero-reel-${small ? 720 : 1280}.mp4`);
-      v.play().catch(() => {});
+      io = new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()));
+      io.observe(el);
     }
 
     const ctx = gsap.context(() => {
@@ -47,7 +50,7 @@ export function Hero() {
         const wide = c.conditions?.wide;
         gsap
           .timeline({ scrollTrigger: { trigger: el, start: "top top", end: "bottom bottom", scrub: 0.7 } })
-          .to(".hero__frame", { clipPath: wide ? "inset(17% 22% 17% 22% round 22px)" : "inset(22% 6% 30% 6% round 16px)", ease: "none" }, 0)
+          .to(".hero__frame", { clipPath: wide ? "inset(17% 22% 17% 22%)" : "inset(22% 6% 30% 6%)", ease: "none" }, 0)
           .to(".hero__shade", { opacity: 0.15, ease: "none" }, 0)
           .to(".hero__copy", { yPercent: wide ? -26 : -18, autoAlpha: 0, ease: "power2.in", duration: 0.3 }, 0)
           .to(".hero__cue", { autoAlpha: 0, duration: 0.1 }, 0)
@@ -59,7 +62,10 @@ export function Hero() {
         mm.revert();
       };
     }, el);
-    return () => ctx.revert();
+    return () => {
+      io?.disconnect();
+      ctx.revert();
+    };
   }, [gsap]);
 
   return (

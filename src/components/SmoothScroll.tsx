@@ -9,6 +9,8 @@ export function SmoothScroll() {
   const { gsap, ScrollTrigger } = useGsap();
 
   useEffect(() => {
+    // Phones resize the viewport as the address bar slides; re-measuring every trigger then stutters.
+    ScrollTrigger.config({ ignoreMobileResize: true });
     if (prefersReducedMotion()) return;
     const lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 0.95, anchors: { offset: -72 } });
     lenis.on("scroll", ScrollTrigger.update);

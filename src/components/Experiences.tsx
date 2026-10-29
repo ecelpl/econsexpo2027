@@ -54,8 +54,8 @@ export function Experiences() {
       panels.forEach((p, i) => {
         gsap.fromTo(
           p.querySelector(".xp__bg img"),
-          { scale: 1.3, xPercent: -8 },
-          { scale: 1.05, xPercent: 8, ease: "none", scrollTrigger: { trigger: p, containerAnimation: tween, start: "left right", end: "right left", scrub: true } },
+          { scale: 1.2, xPercent: -7 },
+          { scale: 1.2, xPercent: 7, ease: "none", scrollTrigger: { trigger: p, containerAnimation: tween, start: "left right", end: "right left", scrub: true } },
         );
         gsap.fromTo(
           p.querySelector(".xp__num"),
@@ -89,7 +89,7 @@ export function Experiences() {
           {experiences.map((x, i) => (
             <article key={x.id} className={`xp__panel xp__panel--${x.id}`} aria-labelledby={`xp-${x.id}`}>
               <div className="xp__bg">
-                <Photo slug={x.photo} alt={x.photoAlt} sizes="100vw" pos={x.photoPos} />
+                <Photo slug={`${x.photo}-shaded`} alt={x.photoAlt} sizes="100vw" pos={x.photoPos} />
               </div>
               <span className="xp__num" aria-hidden="true">
                 {x.index}
