@@ -27,6 +27,14 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+      # Keep version 1 online at /v1/ so the two directions can be compared.
+      - uses: actions/checkout@v4
+        with:
+          ref: v1
+          path: v1-src
+      - run: cd v1-src && npm ci && npm run build && mv out ../out/v1
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}/v1
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

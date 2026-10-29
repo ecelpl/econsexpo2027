@@ -25,7 +25,7 @@ const faqs = [
 
 export default function AttendPage() {
   return (
-    <div className="attend">
+    <div className="attend paper-grid">
       <section className="wrap attend__head" aria-labelledby="attend-title">
         <p className="eyebrow">Attend</p>
         <h1 id="attend-title" className="display display--xl">

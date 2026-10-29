@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Photo } from "@/components/Photo";
+import { Curves } from "@/components/Curves";
 import { Portrait, ProfileProvider } from "@/components/People";
 import { byGroup, groups, members } from "@/content/team";
 import { useGsap, prefersReducedMotion } from "@/lib/motion";
@@ -33,7 +34,8 @@ export function TeamWall() {
 
   return (
     <ProfileProvider>
-      <div ref={root}>
+      <div ref={root} className="tm paper-grid">
+        <Curves variant={1} />
         <section className="tm-hero" aria-labelledby="tm-title">
           <div className="tm-hero__photo">
             <Photo slug="committee-2027" alt="The Econs Expo 2027 committee together under the courtyard umbrellas" sizes="100vw" pos="50% 55%" priority />

@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 import { asset } from "@/lib/asset";
 import { groups, initials, type Member } from "@/content/team";
 
-const OpenProfile = createContext<(m: Member, from: HTMLElement) => void>(() => {});
+export const OpenProfile = createContext<(m: Member, from: HTMLElement) => void>(() => {});
 
 /** Holds the one profile dialog for a page. Portraits inside it open profiles on click or Enter. */
 export function ProfileProvider({ children }: { children: React.ReactNode }) {

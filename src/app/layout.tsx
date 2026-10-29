@@ -8,6 +8,9 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { Loader } from "@/components/Loader";
+import { Cursor } from "@/components/Cursor";
+import { ThemeWatcher } from "@/components/ThemeWatcher";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -21,13 +24,25 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: "#f1f4ef" };
+export const viewport: Viewport = { themeColor: "#0d1a15" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-SG">
+    <html lang="en-SG" suppressHydrationWarning>
+      <head>
+        {/* Decide before first paint whether the opening plays, so returning visitors never see it flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('ee-intro')!=='1'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('ee-intro')}catch(e){}",
+          }}
+        />
+      </head>
       <body>
+        <Loader />
         <SmoothScroll />
+        <Cursor />
+        <ThemeWatcher />
         <Nav />
         <main id="main">{children}</main>
         <Footer />
