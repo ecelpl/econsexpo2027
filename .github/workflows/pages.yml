@@ -43,6 +43,14 @@ jobs:
       - run: cd v2-src && npm ci && npm run build && mv out ../out/v2
         env:
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}/v2
+      # And version 3 at /v3/.
+      - uses: actions/checkout@v4
+        with:
+          ref: v3
+          path: v3-src
+      - run: cd v3-src && npm ci && npm run build && mv out ../out/v3
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}/v3
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

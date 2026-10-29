@@ -12,16 +12,21 @@ import { Loader } from "@/components/Loader";
 import { Cursor } from "@/components/Cursor";
 import { ThemeWatcher } from "@/components/ThemeWatcher";
 import { site } from "@/content/site";
+import { SITE_URL } from "@/lib/url";
 
 export const metadata: Metadata = {
   title: { default: "Econs Expo 2027 · Economics, out loud", template: "%s · Econs Expo 2027" },
   description: site.description,
+  metadataBase: new URL(`${SITE_URL}/`),
   openGraph: {
-    title: "Econs Expo 2027",
+    title: "Econs Expo 2027 · Economics, out loud.",
     description: site.description,
     type: "website",
-    images: ["/media/photos/whiteboard-1280.webp"],
+    siteName: "Econs Expo",
+    locale: "en_SG",
+    images: [{ url: `${SITE_URL}/media/og.jpg`, width: 1200, height: 630, alt: "Students at Econs Expo 2026" }],
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = { themeColor: "#0d1a15" };

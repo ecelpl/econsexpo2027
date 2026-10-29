@@ -24,7 +24,7 @@ export function Footer() {
           <ul className="foot__list">
             <li><Link href="/#experiences">Experiences</Link></li>
             <li><Link href="/team/">Meet the team</Link></li>
-            <li><Link href="/#2026">Econs Expo 2026</Link></li>
+            <li><Link href="/2026/">Econs Expo 2026</Link></li>
             <li><Link href="/attend/">Attend</Link></li>
             <li><Link href={registerHref}>Register interest</Link></li>
           </ul>

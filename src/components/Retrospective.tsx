@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { Film } from "@/components/Film";
 import { Photo } from "@/components/Photo";
 import { CountUp } from "@/components/CountUp";
 import { edition2026 } from "@/content/site";
@@ -20,7 +22,6 @@ const frames = [
 export function Retrospective() {
   const root = useRef<HTMLElement>(null);
   const bg = useRef<HTMLVideoElement>(null);
-  const film = useRef<HTMLDialogElement>(null);
   const { gsap } = useGsap();
 
   useEffect(() => {
@@ -59,15 +60,6 @@ export function Retrospective() {
     };
   }, [gsap]);
 
-  const openFilm = () => {
-    film.current?.showModal();
-    film.current?.querySelector("video")?.play().catch(() => {});
-  };
-  const closeFilm = () => {
-    film.current?.querySelector("video")?.pause();
-    film.current?.close();
-  };
-
   return (
     <section className="rt" id="2026" ref={root} aria-labelledby="rt-title" data-theme="dark">
       <div className="rt__bg" aria-hidden="true">
@@ -102,12 +94,17 @@ export function Retrospective() {
               </dd>
             </div>
           </dl>
-          <button className="rt__film" onClick={openFilm} data-cursor="Play">
-            <span className="rt__play" aria-hidden="true" />
-            <span>
-              Watch the 2026 film <span className="hand">with sound, 1:21</span>
-            </span>
-          </button>
+          <div className="rt__actions">
+            <Film className="rt__film">
+              <span className="rt__play" aria-hidden="true" />
+              <span>
+                Watch the 2026 film <span className="hand">with sound, 1:21</span>
+              </span>
+            </Film>
+            <Link href="/2026/" className="btn btn--line-light" data-cursor="Look">
+              Photos and programme
+            </Link>
+          </div>
         </div>
 
         <div className="wrap rt__field">
@@ -136,21 +133,6 @@ export function Retrospective() {
         </div>
       </div>
 
-      <dialog
-        ref={film}
-        className="film"
-        aria-label="Econs Expo 2026 film"
-        onClick={(e) => e.target === e.currentTarget && closeFilm()}
-        onClose={() => film.current?.querySelector("video")?.pause()}
-      >
-        <video controls playsInline preload="none" poster={asset("/media/video/film-2026-poster.jpg")}>
-          <source src={asset("/media/video/film-2026.mp4")} type="video/mp4" />
-        </video>
-        <button className="film__close" onClick={closeFilm}>
-          <span className="sr">Close film</span>
-          <span aria-hidden="true">×</span>
-        </button>
-      </dialog>
     </section>
   );
 }
