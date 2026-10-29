@@ -5,14 +5,14 @@
   --paper: #f1f4ef;
   --paper-2: #e6ebe4;
   --ink: #13251e;
-  --ink-2: #0b2a1c;
-  --forest: #10402b;
+  --ink-2: #0c1f17;
+  --forest: #0f281d;
   --leaf: #2f8f5b;
   --mint: #9be3b7;
   --ink-soft: #4f625a;
   --green: #1f5e3b;
   --marker: #4a3bd6;
-  --marker-light: #9be3b7;
+  --marker-light: #a49bff;
   --red: #d4432e;
   --rule: #cfd8d1;
 
@@ -211,7 +211,7 @@ button {
   color: var(--ink);
 }
 .btn--paper:hover {
-  background: var(--mint);
+  background: var(--marker-light);
 }
 .btn--line-light {
   border-color: rgba(241, 244, 239, 0.5);
@@ -400,7 +400,7 @@ button {
   color: var(--paper);
 }
 .nav[data-dark].is-scrolled:not(.is-open) {
-  background: rgba(11, 42, 28, 0.92);
+  background: rgba(12, 31, 23, 0.92);
   box-shadow: 0 1px 0 rgba(241, 244, 239, 0.08);
 }
 .nav[data-dark]:not(.is-open) .nav__year {
@@ -442,8 +442,8 @@ button {
   position: relative;
   overflow: clip;
   background-color: var(--paper);
-  background-image: var(--noise), linear-gradient(rgba(31, 94, 59, 0.085) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(31, 94, 59, 0.085) 1px, transparent 1px);
+  background-image: var(--noise), linear-gradient(rgba(31, 94, 59, 0.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 94, 59, 0.065) 1px, transparent 1px);
   background-size: 180px 180px, 36px 36px, 36px 36px;
   background-position: 0 0, -1px -1px, -1px -1px;
 }
@@ -629,7 +629,7 @@ html.ee-intro .ld {
 .hero__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(9, 38, 25, 0.6) 0%, rgba(9, 38, 25, 0.1) 32%, rgba(9, 38, 25, 0.25) 55%, rgba(9, 38, 25, 0.88) 100%);
+  background: linear-gradient(180deg, rgba(11, 31, 23, 0.6) 0%, rgba(11, 31, 23, 0.1) 32%, rgba(11, 31, 23, 0.25) 55%, rgba(11, 31, 23, 0.88) 100%);
 }
 .hero__copy {
   position: absolute;
@@ -1284,7 +1284,7 @@ html.ee-intro .ld {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(9, 38, 25, 0.1) 0%, rgba(9, 38, 25, 0.8) 45%);
+    background: linear-gradient(180deg, rgba(11, 31, 23, 0.1) 0%, rgba(11, 31, 23, 0.8) 45%);
   }
   .xp__num {
     top: 8px;
@@ -1672,7 +1672,7 @@ html.ee-intro .ld {
   overflow: visible;
 }
 .profile::backdrop {
-  background: rgba(9, 38, 25, 0.55);
+  background: rgba(11, 31, 23, 0.55);
   backdrop-filter: blur(6px);
 }
 .profile[open] .profile__card {
@@ -1816,7 +1816,7 @@ html.ee-intro .ld {
 .rt__veil {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 30% 40%, rgba(9, 38, 25, 0.35), rgba(9, 38, 25, 0.85) 75%), rgba(9, 38, 25, 0.35);
+  background: radial-gradient(ellipse at 30% 40%, rgba(11, 31, 23, 0.35), rgba(11, 31, 23, 0.85) 75%), rgba(11, 31, 23, 0.35);
 }
 .rt__content {
   position: relative;
@@ -2166,7 +2166,7 @@ html.ee-intro .ld {
 .close__veil {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(9, 38, 25, 0.7) 0%, rgba(9, 38, 25, 0.45) 45%, rgba(9, 38, 25, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(11, 31, 23, 0.7) 0%, rgba(11, 31, 23, 0.45) 45%, rgba(11, 31, 23, 0.9) 100%);
 }
 .close__inner {
   position: relative;

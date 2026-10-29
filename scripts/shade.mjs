@@ -5,7 +5,7 @@ import sharp from "sharp";
 
 const slugs = ["hall-clap", "hall-pitch", "crisis-tables"];
 const dir = "public/media/photos";
-const ink = "9,38,25";
+const ink = "11,31,23";
 
 for (const slug of slugs) {
   const src = `${dir}/${slug}-2048.webp`;
