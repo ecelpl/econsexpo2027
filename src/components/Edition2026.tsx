@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Photo } from "@/components/Photo";
 import { Film } from "@/components/Film";
+import { SpeakerCards } from "@/components/SpeakerCards";
 import { CountUp } from "@/components/CountUp";
 import { Curves } from "@/components/Curves";
 import { edition2026, registerHref } from "@/content/site";
@@ -215,16 +216,7 @@ export function Edition2026() {
           <h2 className="display">
             Who <span className="hand ed__hand2">spoke.</span>
           </h2>
-          <ul className="ed__spk">
-            {edition2026.speakers.map((s) => (
-              <li key={s.name}>
-                <span className="ed__sname">{s.name}</span>
-                <span className="ed__srole">
-                  {s.role}, {s.org}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <SpeakerCards />
         </div>
       </section>
 

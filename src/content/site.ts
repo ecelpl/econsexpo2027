@@ -74,11 +74,40 @@ export const experiences: Experience[] = [
 export const edition2026 = {
   date: "Saturday 25 April 2026",
   participants: "72",
+  // Photos and titles from the committee's own 2026 records (Marketing 2027 doc). Bios use public sources, linked.
   speakers: [
-    { name: "Robert Huray", role: "Chairman, Southeast Asia", org: "Deutsche Bank" },
-    { name: "Lim Zi-Kuan", role: "Head of M&A, Asia Pacific", org: "Deutsche Bank" },
-    { name: "Prof. Nattavudh Powdthavee", role: "Professor of Economics", org: "Nanyang Technological University" },
-    { name: "Dr Prakash Kannan", role: "Chief Economist", org: "GIC" },
-  ],
+    {
+      slug: "huray",
+      name: "Robert Huray",
+      role: "Chairman, Southeast Asia",
+      org: "Deutsche Bank",
+      bio: "Robert Huray joined Deutsche Bank in 2023 from Credit Suisse to cover the bank's largest clients across Singapore, Malaysia and Indonesia.",
+      source: { label: "finews.asia", href: "https://www.finews.asia/people/39398-deutsche-bank-hires-southeast-asia-vice-chair" },
+    },
+    {
+      slug: "lim",
+      name: "Lim Zi-Kuan",
+      role: "Co-Head of M&A, Asia Pacific",
+      org: "Deutsche Bank",
+      bio: "Lim Zi-Kuan leads mergers and acquisitions for Asia Pacific at Deutsche Bank from Singapore. He joined in 2023 after 20 years at Credit Suisse, most recently as head of M&A for Southeast Asia and frontier markets.",
+      source: { label: "finews.asia", href: "https://www.finews.asia/people/39012-credit-suisse-deutsche-bank-lim-zi-kuan" },
+    },
+    {
+      slug: "powdthavee",
+      name: "Prof. Nattavudh Powdthavee",
+      role: "Professor of Economics",
+      org: "Nanyang Technological University",
+      bio: "Nick Powdthavee is a behavioural economist who studies happiness and wellbeing. He joined NTU in 2022 from Warwick Business School, and wrote The Happiness Equation: The Surprising Economics of Our Most Valuable Asset.",
+      source: { label: "IZA", href: "https://www.iza.org/person/2823/nattavudh-powdthavee" },
+    },
+    {
+      slug: "kannan",
+      name: "Dr Prakash Kannan",
+      role: "Chief Economist",
+      org: "GIC",
+      bio: "Prakash Kannan is Chief Economist and Director of the Economics & Investment Strategy department at GIC, where he shapes the top-down view of the investment environment and the asset allocation strategy. Before joining GIC in 2012 he worked at the International Monetary Fund and Bank Negara Malaysia.",
+      source: null as { label: string; href: string } | null,
+    },
+  ] as { slug: string; name: string; role: string; org: string; bio: string; source: { label: string; href: string } | null }[],
   programme: ["Guest speaker fireside and panel", "Economics crash courses", "Stock propositions", "Econs Crisis simulation", "Closing ceremony and medals"],
 };

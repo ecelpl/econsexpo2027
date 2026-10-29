@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { Film } from "@/components/Film";
+import { SpeakerCards } from "@/components/SpeakerCards";
 import { Photo } from "@/components/Photo";
 import { CountUp } from "@/components/CountUp";
 import { edition2026 } from "@/content/site";
@@ -120,16 +121,7 @@ export function Retrospective() {
 
         <div className="wrap rt__speakers">
           <h3 className="eyebrow eyebrow--light">2026 guest speakers</h3>
-          <ul>
-            {edition2026.speakers.map((s) => (
-              <li key={s.name}>
-                <span className="rt__sname">{s.name}</span>
-                <span className="rt__srole">
-                  {s.role}, {s.org}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <SpeakerCards tone="dark" />
         </div>
       </div>
 
