@@ -1,55 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { Photo } from "@/components/Photo";
 import { ProfileProvider, OpenProfile } from "@/components/People";
-import { coreTeam, members, groups, type Member } from "@/content/team";
+import { coreTeam, members, groups } from "@/content/team";
 import { asset } from "@/lib/asset";
 import { useGsap, prefersReducedMotion } from "@/lib/motion";
 
 function Rows() {
   const open = useContext(OpenProfile);
-  const list = useRef<HTMLUListElement>(null);
-  const float = useRef<HTMLDivElement>(null);
-  const [hover, setHover] = useState<Member | null>(null);
-  const { gsap } = useGsap();
-
-  useEffect(() => {
-    const f = float.current!;
-    if (!window.matchMedia("(pointer: fine)").matches || prefersReducedMotion()) return;
-    const x = gsap.quickTo(f, "x", { duration: 0.55, ease: "power3.out" });
-    const y = gsap.quickTo(f, "y", { duration: 0.55, ease: "power3.out" });
-    const r = gsap.quickTo(f, "rotate", { duration: 0.8, ease: "power3.out" });
-    let lx = 0;
-    const move = (e: PointerEvent) => {
-      x(e.clientX);
-      y(e.clientY);
-      r(gsap.utils.clamp(-10, 10, (e.clientX - lx) * 0.6));
-      lx = e.clientX;
-    };
-    const l = list.current!;
-    l.addEventListener("pointermove", move);
-    return () => l.removeEventListener("pointermove", move);
-  }, [gsap]);
-
-  useEffect(() => {
-    const f = float.current!;
-    gsap.to(f, { autoAlpha: hover ? 1 : 0, scale: hover ? 1 : 0.85, duration: 0.35, ease: "power3.out" });
-  }, [hover, gsap]);
-
   return (
-    <>
-      <ul className="crew__list" ref={list} onPointerLeave={() => setHover(null)}>
+    <ul className="crew__list">
         {coreTeam.map((m, i) => (
           <li key={m.slug}>
             <button
               type="button"
               className="crew__row"
               aria-haspopup="dialog"
-              data-cursor="Meet"
-              onPointerEnter={() => setHover(m)}
-              onFocus={() => setHover(null)}
               onClick={(e) => open(m, e.currentTarget)}
             >
               <span className="crew__i tabular">0{i + 1}</span>
@@ -62,16 +30,7 @@ function Rows() {
             </button>
           </li>
         ))}
-      </ul>
-      <div className="crew__float" ref={float} aria-hidden="true">
-        {coreTeam.map((m) => (
-          <img key={m.slug} src={asset(`/media/team/${m.photo}.jpg`)} alt="" width={480} height={480} className={hover?.slug === m.slug ? "is-on" : ""} />
-        ))}
-        <svg className="ink" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d="M 52 3 C 82 2, 98 24, 97 50 C 96 79, 74 97, 48 97 C 20 97, 3 76, 3 49 C 3 24, 22 5, 46 4 C 58 3, 66 6, 72 10" />
-        </svg>
-      </div>
-    </>
+    </ul>
   );
 }
 
@@ -94,7 +53,7 @@ export function CoreTeam() {
         <div className="wrap crew__head">
           <p className="eyebrow">The people</p>
           <h2 id="crew-title" className="display display--xl">
-            Run by students, <span className="hand crew__hand">start to finish.</span>
+            Made by students, <span className="hand crew__hand">for students.</span>
           </h2>
           <p className="crew__body">
             {members.length} students across a core team and {groups.length - 1} subcommittees. Pick a name to meet them.

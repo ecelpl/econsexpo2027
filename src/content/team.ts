@@ -34,9 +34,9 @@ export const members: Member[] = [
   { slug: "kaya", name: "Kaya Valenkar", role: "President", group: "core", core: true, photo: "kaya", check: "Spelling: Instagram says Valenkar, the Marketing doc says Velankar" },
   { slug: "richelle", name: "Richelle Luhur", role: "Vice President & Head of Finance", group: "core", core: true, photo: "richelle" },
   { slug: "alysa", name: "Alysa Luhur", role: "Vice President & Head of Marketing", group: "core", core: true, photo: "alysa" },
-  { slug: "christian", name: "Christian Huray", role: "Head of Outreach", group: "core", core: true, photo: "christian" },
   { slug: "avinash", name: "Avinash Krishpathy", role: "Vice President & Head of Academics", group: "core", core: true, photo: "avinash" },
   { slug: "en", name: "En Chng", role: "Head of Logistics", group: "core", core: true, photo: "en" },
+  { slug: "christian", name: "Christian Huray", role: "Head of Outreach", group: "core", core: true, photo: "christian" },
 
   { slug: "marcel", name: "Marcel Tan", role: "Marketing & Outreach", group: "marketing", photo: "marcel" },
   { slug: "nathan", name: "Nathan Chew", role: "Marketing & Outreach", group: "marketing", photo: "nathan" },

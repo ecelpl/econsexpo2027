@@ -641,8 +641,15 @@ html.ee-intro .ld {
   z-index: 2;
   padding-bottom: clamp(28px, 6vh, 64px);
 }
-.hero__eyebrow {
-  margin-bottom: 18px;
+.hero__motto {
+  display: inline-block;
+  margin: 0 0 14px;
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--marker-light);
+  rotate: -3deg;
+  transform-origin: left bottom;
 }
 .hero__title {
   margin: 0 0 clamp(20px, 3vh, 36px);
@@ -1471,7 +1478,7 @@ html.ee-intro .ld {
 .crew__row {
   position: relative;
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr) auto;
+  grid-template-columns: 48px clamp(56px, 6vw, 88px) minmax(0, 1fr) auto;
   align-items: center;
   gap: clamp(12px, 2vw, 32px);
   width: 100%;
@@ -1489,7 +1496,15 @@ html.ee-intro .ld {
   color: var(--marker);
 }
 .crew__thumb {
-  display: none;
+  width: clamp(56px, 6vw, 88px);
+  height: clamp(56px, 6vw, 88px);
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+.crew__row:hover .crew__thumb,
+.crew__row:focus-visible .crew__thumb {
+  transform: scale(1.08);
 }
 .crew__name {
   font-family: var(--f-display);
@@ -1519,42 +1534,13 @@ html.ee-intro .ld {
 .crew__line path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  transition: stroke-dashoffset 0.8s var(--ease-out);
+  opacity: 0;
+  transition: stroke-dashoffset 0.8s var(--ease-out), opacity 0.2s;
 }
 .crew__row:hover .crew__line path,
 .crew__row:focus-visible .crew__line path {
   stroke-dashoffset: 0;
-}
-.crew__float {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 30;
-  width: 240px;
-  height: 300px;
-  margin: -150px 0 0 -120px;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-}
-.crew__float img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.crew__float img.is-on {
   opacity: 1;
-}
-.crew__float svg {
-  position: absolute;
-  inset: -8%;
-  width: 116%;
-  height: 116%;
 }
 .crew__foot {
   display: grid;
@@ -1594,19 +1580,13 @@ html.ee-intro .ld {
     display: none;
   }
   .crew__thumb {
-    display: block;
     grid-row: span 2;
     width: 52px;
     height: 52px;
-    border-radius: 50%;
-    object-fit: cover;
   }
   .crew__role {
     text-align: left;
     grid-column: 2;
-  }
-  .crew__float {
-    display: none;
   }
   .crew__foot {
     grid-template-columns: minmax(0, 1fr);

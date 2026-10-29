@@ -37,6 +37,7 @@ export function Hero() {
         .fromTo(".hero__media", { scale: 1.18 }, { scale: 1, duration: 2.2, ease: "expo.out" }, 0)
         .fromTo(".hero__line", { yPercent: 115 }, { yPercent: 0, duration: 1.2, stagger: 0.12 }, 0.1)
         .fromTo(".hero__under path", { drawSVG: "0%" }, { drawSVG: "100%", duration: 1.1, ease: "power2.inOut" }, 0.75)
+        .fromTo(".hero__motto", { autoAlpha: 0, rotate: -6 }, { autoAlpha: 1, rotate: 0, duration: 0.8 }, 0.5)
         .fromTo(".hero__meta > *", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.08 }, 0.7)
         .fromTo(".hero__cue", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6 }, 1.4);
       const off = onReady(() => intro.play());
@@ -80,8 +81,8 @@ export function Hero() {
         </div>
 
         <div className="hero__copy wrap">
-          <p className="eyebrow eyebrow--light hero__eyebrow">
-            Econs Expo {site.edition} · {site.venue.short}
+          <p className="hand hero__motto">
+            <span className="sr">Econs Expo {site.edition}: </span>Made by students, for students.
           </p>
           <h1 id="hero-title" className="hero__title">
             <span className="hero__mask">
