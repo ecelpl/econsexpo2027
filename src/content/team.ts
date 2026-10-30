@@ -31,7 +31,7 @@ export const groups: { id: GroupId; name: string; blurb: string }[] = [
 ];
 
 export const members: Member[] = [
-  { slug: "kaya", name: "Kaya Valenkar", role: "President", group: "core", core: true, photo: "kaya", check: "Spelling: Instagram says Valenkar, the Marketing doc says Velankar" },
+  { slug: "kaya", name: "Kaya Velankar", role: "President", group: "core", core: true, photo: "kaya" },
   { slug: "richelle", name: "Richelle Luhur", role: "Vice President & Head of Finance", group: "core", core: true, photo: "richelle" },
   { slug: "alysa", name: "Alysa Luhur", role: "Vice President & Head of Marketing", group: "core", core: true, photo: "alysa" },
   { slug: "avinash", name: "Avinash Krishpathy", role: "Vice President & Head of Academics", group: "core", core: true, photo: "avinash" },
