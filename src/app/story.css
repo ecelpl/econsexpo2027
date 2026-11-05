@@ -545,3 +545,11 @@
     transition: none;
   }
 }
+
+/* Touch feedback: buttons press in, like a real key. */
+.btn {
+  transition: transform 0.18s var(--ease-out), background-color 0.25s, color 0.25s, border-color 0.25s;
+}
+.btn:active {
+  transform: scale(0.97);
+}

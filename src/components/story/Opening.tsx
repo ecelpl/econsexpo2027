@@ -109,7 +109,17 @@ export function Opening() {
     const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
     io.observe(el);
     window.addEventListener("pointermove", move, { passive: true });
-    gsap.ticker.add(drift);
+    // Phones get one demonstration sweep after the opening, then the graph rests. Desktops drift when the mouse is still.
+    const touch = window.matchMedia("(hover: none)").matches;
+    if (!touch) gsap.ticker.add(drift);
+    const sweep = touch
+      ? gsap
+          .timeline({ paused: true, delay: 2.1, defaults: { ease: "sine.inOut", onUpdate: draw } })
+          .to(state, { dx: -130, sy: 30, duration: 1.4 })
+          .to(state, { dx: 110, sy: -25, duration: 1.6 })
+          .to(state, { dx: 0, sy: 0, duration: 1.2 })
+      : null;
+    const offSweep = sweep ? onReady(() => sweep.play()) : () => {};
 
     const ctx = gsap.context(() => {
       gsap.set(".op__ink", { drawSVG: "0%" });
@@ -134,7 +144,7 @@ export function Opening() {
       gsap
         .timeline({ scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 } })
         .to(".op__copy", { yPercent: -18, autoAlpha: 0.2, ease: "none" }, 0)
-        .to(".op__board", { yPercent: 10, rotate: -2, scale: 0.94, ease: "none" }, 0);
+        .to(".op__board", touch ? { yPercent: 6, ease: "none" } : { yPercent: 10, rotate: -2, scale: 0.94, ease: "none" }, 0);
       return () => off();
     }, el);
 
@@ -142,6 +152,8 @@ export function Opening() {
       io.disconnect();
       window.removeEventListener("pointermove", move);
       gsap.ticker.remove(drift);
+      offSweep();
+      sweep?.kill();
       ctx.revert();
     };
   }, [gsap]);

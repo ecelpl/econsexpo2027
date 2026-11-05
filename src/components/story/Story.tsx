@@ -56,12 +56,13 @@ export function Story() {
       }),
     );
     if (prefersReducedMotion()) return () => triggers.forEach((t) => t.kill());
+    const small = window.matchMedia("(max-width: 860px)").matches;
     const ctx = gsap.context(() => {
       el.querySelectorAll<HTMLElement>(".st__ch").forEach((ch) => {
         gsap.fromTo(
           ch.querySelectorAll(".st__reveal"),
-          { autoAlpha: 0, y: 40 },
-          { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: ch, start: "top 72%" } },
+          { autoAlpha: 0, y: small ? 22 : 40 },
+          { autoAlpha: 1, y: 0, duration: small ? 0.7 : 0.9, stagger: small ? 0.05 : 0.08, ease: "power3.out", scrollTrigger: { trigger: ch, start: "top 72%" } },
         );
       });
       gsap.fromTo(".st__board", { autoAlpha: 0, y: 60, rotate: 2 }, { autoAlpha: 1, y: 0, rotate: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 70%" } });

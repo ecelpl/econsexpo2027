@@ -46,11 +46,16 @@ export function Retrospective() {
     }
     if (reduce) return () => io?.disconnect();
 
+    // Phones: gentler depth and a one-off reveal per frame instead of a scrubbed clip.
+    const small = window.matchMedia("(max-width: 860px)").matches;
     const ctx = gsap.context(() => {
       el.querySelectorAll<HTMLElement>(".rt__frame").forEach((f) => {
-        const s = Number(f.dataset.speed);
+        const s = Number(f.dataset.speed) * (small ? 0.35 : 1);
         gsap.fromTo(f, { y: s * 7 }, { y: -s * 7, ease: "none", scrollTrigger: { trigger: f, start: "top bottom", end: "bottom top", scrub: true } });
-        gsap.fromTo(f.querySelector(".rt__media"), { clipPath: "inset(30% 20% 30% 20%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.out", scrollTrigger: { trigger: f, start: "top 95%", end: "top 55%", scrub: true } });
+        if (small)
+          gsap.fromTo(f.querySelector(".rt__media"), { clipPath: "inset(12% 10% 12% 10%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: f, start: "top 85%" } });
+        else
+          gsap.fromTo(f.querySelector(".rt__media"), { clipPath: "inset(30% 20% 30% 20%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.out", scrollTrigger: { trigger: f, start: "top 95%", end: "top 55%", scrub: true } });
       });
       gsap.fromTo(".rt__year", { yPercent: 30, autoAlpha: 0.2 }, { yPercent: -10, autoAlpha: 1, ease: "none", scrollTrigger: { trigger: ".rt__head", start: "top bottom", end: "bottom 30%", scrub: true } });
       gsap.fromTo(".rt__veil", { opacity: 0.9 }, { opacity: 0.55, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "top top", scrub: true } });
