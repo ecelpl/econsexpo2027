@@ -6,9 +6,9 @@ import { registerHref } from "@/content/site";
 import { SjiiLogo } from "@/components/SjiiLogo";
 
 const links = [
-  { href: "/#story", label: "The story" },
+  { href: "/#events", label: "Events" },
   { href: "/team/", label: "Team" },
-  { href: "/#speakers", label: "Speakers" },
+  
   { href: "/2026/", label: "2026" },
   { href: "/attend/", label: "Attend" },
 ];

@@ -1,11 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/bricolage-grotesque/standard.css";
-import "@fontsource-variable/newsreader/standard.css";
-import "@fontsource-variable/newsreader/standard-italic.css";
-import "@fontsource/kalam/400.css";
-import "@fontsource/kalam/700.css";
 import "./globals.css";
-import "./story.css";
+import "./v6.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -30,7 +26,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export const viewport: Viewport = { themeColor: "#0d1a15" };
+export const viewport: Viewport = { themeColor: "#f3f4f0" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

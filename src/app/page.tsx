@@ -1,21 +1,17 @@
-import { Opening } from "@/components/story/Opening";
-import { Story } from "@/components/story/Story";
-import { Ticker } from "@/components/Ticker";
+import { Opening } from "@/components/v6/Opening";
 import { Intro } from "@/components/Intro";
+import { Events } from "@/components/v6/Events";
+import { Past } from "@/components/v6/Past";
 import { CoreTeam } from "@/components/CoreTeam";
-import { Retrospective } from "@/components/Retrospective";
-import { Speakers } from "@/components/Speakers";
-import { Closing } from "@/components/Closing";
+import { Closing } from "@/components/v6/Closing";
 
 export default function Home() {
   return (
     <>
       <Opening />
-      <Ticker />
       <Intro />
-      <Story />
-      <Retrospective />
-      <Speakers />
+      <Events />
+      <Past />
       <CoreTeam />
       <Closing />
     </>

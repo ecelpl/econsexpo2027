@@ -24,7 +24,7 @@ export function Footer() {
         <div>
           <h2 className="eyebrow">Explore</h2>
           <ul className="foot__list">
-            <li><Link href="/#story">The story</Link></li>
+            <li><Link href="/#events">Events</Link></li>
             <li><Link href="/team/">Meet the team</Link></li>
             <li><Link href="/2026/">Econs Expo 2026</Link></li>
             <li><Link href="/attend/">Attend</Link></li>
