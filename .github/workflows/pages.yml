@@ -51,6 +51,14 @@ jobs:
       - run: cd v3-src && npm ci && npm run build && mv out ../out/v3
         env:
           NEXT_PUBLIC_BASE_PATH: /v3
+      # And version 4 at /v4/ (the site as it was when the domain went live, 5 Nov 2026).
+      - uses: actions/checkout@v4
+        with:
+          ref: v4
+          path: v4-src
+      - run: cd v4-src && npm ci && npm run build && mv out ../out/v4
+        env:
+          NEXT_PUBLIC_BASE_PATH: /v4
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

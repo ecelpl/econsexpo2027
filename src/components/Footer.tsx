@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site, registerHref } from "@/content/site";
+import { SjiiLogo } from "@/components/SjiiLogo";
 
 export function Footer() {
   return (
@@ -10,6 +11,7 @@ export function Footer() {
           <p className="foot__sub">
             A student-led inter-school economics conference, hosted by {site.venue.name}.
           </p>
+          <SjiiLogo className="foot__logo" />
         </div>
         <div>
           <h2 className="eyebrow">Where</h2>
@@ -22,7 +24,7 @@ export function Footer() {
         <div>
           <h2 className="eyebrow">Explore</h2>
           <ul className="foot__list">
-            <li><Link href="/#experiences">Experiences</Link></li>
+            <li><Link href="/#story">The story</Link></li>
             <li><Link href="/team/">Meet the team</Link></li>
             <li><Link href="/2026/">Econs Expo 2026</Link></li>
             <li><Link href="/attend/">Attend</Link></li>

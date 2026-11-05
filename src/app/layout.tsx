@@ -5,6 +5,7 @@ import "@fontsource-variable/newsreader/standard-italic.css";
 import "@fontsource/kalam/400.css";
 import "@fontsource/kalam/700.css";
 import "./globals.css";
+import "./story.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";

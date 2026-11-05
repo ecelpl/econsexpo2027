@@ -1,0 +1,547 @@
+/* Econs Expo 2027 · v5 "The Notebook"
+   The day told as one graph that keeps redrawing itself. Marker violet is you, green is the school. */
+
+/* ---------------- SJII logo ---------------- */
+.sjii {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+  flex: none;
+}
+.sjii--wide {
+  aspect-ratio: 1080 / 347.28;
+}
+.sjii--tall {
+  aspect-ratio: 1080 / 1453.75;
+}
+.sjii--crest {
+  aspect-ratio: 300 / 347.28;
+}
+.nav__crest {
+  width: 24px;
+  align-self: center;
+  margin-right: 6px;
+  color: var(--green);
+  transition: color 0.3s;
+}
+.nav[data-dark]:not(.is-open) .nav__crest {
+  color: var(--paper);
+}
+.foot__logo {
+  width: 200px;
+  margin-top: 26px;
+  color: var(--paper);
+  opacity: 0.92;
+}
+
+/* ---------------- Opening ---------------- */
+.op {
+  min-height: 100svh;
+  padding: calc(var(--nav-h) + 3vh) 0 9vh;
+  display: flex;
+  align-items: center;
+}
+.op__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 4vw, 72px);
+  align-items: center;
+}
+.op__motto {
+  font-size: clamp(22px, 2vw, 30px);
+  margin: 0 0 8px;
+  transform: rotate(-3deg);
+  transform-origin: left center;
+}
+.op__title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-variation-settings: "wdth" 78, "opsz" 96;
+  font-size: clamp(60px, 8.6vw, 156px);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  margin: 0 0 26px;
+}
+.op__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.07em;
+  margin-bottom: -0.07em;
+}
+.op__line {
+  display: block;
+  will-change: transform;
+}
+.op__loud {
+  color: var(--green);
+}
+.op__lede {
+  font-size: clamp(18px, 1.35vw, 21px);
+  max-width: 36ch;
+  margin: 0;
+}
+.op__lede .hand {
+  font-size: 1.12em;
+}
+.op__facts,
+.st__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 34px;
+  margin: 24px 0 26px;
+  font-family: var(--f-display);
+}
+.op__facts dt,
+.st__facts dt {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.op__facts dd,
+.st__facts dd {
+  margin: 2px 0 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.op__ctas,
+.st__ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.op__host {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 34px;
+  font-family: var(--f-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.op__host .sjii {
+  width: 176px;
+  color: var(--green);
+}
+
+.op__board {
+  position: relative;
+  will-change: transform;
+}
+.op__graph {
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+.op__graph path {
+  stroke: var(--ink);
+  stroke-width: 3;
+}
+.op__graph .op__s {
+  stroke: var(--green);
+  stroke-width: 6;
+}
+.op__graph .op__d {
+  stroke: var(--marker);
+  stroke-width: 6;
+}
+.op__graph .op__guide {
+  stroke: var(--ink-soft);
+  stroke-width: 2;
+  stroke-dasharray: 4 10;
+}
+.op__graph .op__here path {
+  stroke: var(--marker);
+}
+.op__graph text {
+  font-size: 26px;
+  fill: var(--ink-soft);
+}
+.op__graph .op__lab {
+  font-size: 36px;
+  font-weight: 700;
+}
+.op__sl .op__lab {
+  fill: var(--green);
+}
+.op__dl .op__lab {
+  fill: var(--marker);
+}
+.op__sub {
+  font-size: 24px;
+  font-weight: 400;
+}
+.op__graph .op__here text {
+  font-size: 32px;
+  font-weight: 700;
+  fill: var(--marker);
+}
+.op__graph .op__px,
+.op__graph .op__qx {
+  font-size: 24px;
+  fill: var(--ink);
+}
+.op__dot-fill {
+  fill: var(--marker) !important;
+  stroke: none !important;
+}
+.op__dot-ring {
+  stroke: var(--marker) !important;
+  stroke-width: 2.5 !important;
+}
+
+/* Taped polaroids from 2026, pinned to the page. */
+.op__pin,
+.st__pol {
+  margin: 0;
+  background: #fff;
+  padding: 7px 7px 0;
+  box-shadow: 0 1px 2px rgba(19, 37, 30, 0.18), 0 14px 30px -12px rgba(19, 37, 30, 0.35);
+}
+.op__pin {
+  position: absolute;
+  z-index: 2;
+  width: clamp(100px, 10.5vw, 176px);
+  will-change: transform;
+}
+.op__pin img,
+.st__pol img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.op__pin figcaption,
+.st__pol figcaption {
+  font-size: 15px;
+  line-height: 1.2;
+  padding: 6px 2px 9px;
+}
+.op__tape {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 70px;
+  height: 22px;
+  margin-left: -35px;
+  background: rgba(155, 227, 183, 0.6);
+  transform: rotate(-4deg);
+  z-index: 1;
+}
+.op__pin.p1 {
+  left: 8%;
+  top: 44%;
+}
+.op__pin.p2 {
+  left: 40%;
+  top: -6%;
+}
+.op__pin.p3 {
+  right: 2%;
+  top: 54%;
+}
+.op .op__cue {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 18px;
+  white-space: nowrap;
+}
+.op__cue-t {
+  display: none;
+}
+@media (hover: none) {
+  .op__cue-m {
+    display: none;
+  }
+  .op__cue-t {
+    display: inline;
+  }
+}
+
+/* ---------------- Story ---------------- */
+.st {
+  padding: 8vh 0 10vh;
+}
+.st__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(28px, 5vw, 96px);
+}
+.st__stick {
+  position: sticky;
+  top: calc(var(--nav-h) + 2vh);
+  align-self: start;
+  height: calc(100svh - var(--nav-h) - 4vh);
+  display: flex;
+  align-items: center;
+}
+.st__board {
+  width: 100%;
+}
+.st__rail {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  margin: 0 0 16px;
+  font-family: var(--f-display);
+  font-size: 14px;
+  font-weight: 600;
+}
+.st__rail a {
+  display: flex;
+  gap: 7px;
+  padding: 6px 12px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: border-color 0.3s, color 0.3s, background-color 0.3s;
+}
+.st__rail a:hover {
+  border-color: var(--rule);
+}
+.st__rail .is-past a {
+  color: var(--ink);
+}
+.st__rail .is-on a {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+.st__paper {
+  position: relative;
+  background-color: #fbfcf9;
+  background-image: linear-gradient(rgba(31, 94, 59, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 94, 59, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 3% 3% 2%;
+}
+.st__graph {
+  width: 100%;
+  height: auto;
+  max-height: calc(100svh - var(--nav-h) - 180px);
+}
+.st__graph path {
+  stroke: var(--ink);
+  stroke-width: 2.6;
+}
+.st__graph .st__a {
+  stroke: var(--marker);
+  stroke-width: 5;
+}
+.st__graph .st__b {
+  stroke: var(--green);
+  stroke-width: 4.5;
+  transition: stroke-dasharray 0.4s;
+}
+.st__board[data-ch="0"] .st__b,
+.st__board[data-ch="2"] .st__b {
+  stroke-dasharray: 10 12;
+}
+.st__graph text {
+  font-size: 22px;
+  fill: var(--marker);
+}
+.st__graph .st__axt {
+  font-size: 19px;
+  fill: var(--ink-soft);
+  animation: st-fade 0.6s 0.3s both;
+}
+@keyframes st-fade {
+  from {
+    opacity: 0;
+  }
+}
+.st__ann {
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.st__board[data-ch="0"] .st__ann--0,
+.st__board[data-ch="1"] .st__ann--1,
+.st__board[data-ch="2"] .st__ann--2,
+.st__board[data-ch="3"] .st__ann--3,
+.st__board[data-ch="4"] .st__ann--4 {
+  opacity: 1;
+  transition: opacity 0.5s 0.5s;
+}
+.st__ann path {
+  stroke: var(--marker);
+}
+.st__graph .st__pt {
+  fill: var(--marker);
+  stroke: none;
+}
+.st__bar {
+  fill: var(--green);
+  fill-opacity: 0.85;
+  stroke: none !important;
+  transition: y 0.35s var(--ease-out), height 0.35s var(--ease-out);
+}
+.st__graph .st__guide {
+  stroke: var(--ink-soft);
+  stroke-width: 2;
+  stroke-dasharray: 4 9;
+}
+.st__graph .st__guide--red {
+  stroke: var(--red);
+}
+.st__s1 {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 0.4s, transform 0.9s var(--ease-out);
+}
+.st__board[data-shocked] .st__graph .st__guide--red {
+  stroke: var(--red);
+}
+.st__s1 {
+  opacity: 1;
+  transform: none;
+}
+.st__graph .st__red {
+  stroke: var(--red);
+  stroke-width: 4.5;
+}
+.st__graph .st__redt {
+  fill: var(--red);
+}
+.st__photos {
+  position: absolute;
+  right: -5%;
+  bottom: -9%;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+  pointer-events: none;
+}
+.st__pol {
+  position: absolute;
+  inset: auto 0 0;
+  opacity: 0;
+  transform: translateY(40px) rotate(8deg);
+  transition: opacity 0.5s, transform 0.9s var(--ease-out);
+}
+.st__pol.is-on {
+  opacity: 1;
+  transform: rotate(-4deg);
+}
+.st__pol.is-past {
+  transform: translate(-50px, -30px) rotate(-16deg);
+}
+
+.st__ch {
+  min-height: 96svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vh 0;
+}
+.st__ch .display {
+  margin-bottom: 22px;
+}
+.st__body {
+  font-size: clamp(18px, 1.3vw, 20px);
+  max-width: 40ch;
+  margin: 0 0 26px;
+}
+.st__ch .widget {
+  max-width: 460px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+@media (max-width: 860px) {
+  .op {
+    padding-top: calc(var(--nav-h) + 24px);
+  }
+  .op__grid,
+  .st__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .op__board {
+    margin-top: 12px;
+  }
+  .op__pin {
+    width: 96px;
+    padding: 4px 4px 0;
+  }
+  .op__pin figcaption {
+    display: none;
+  }
+  .op__pin.p2 {
+    display: none;
+  }
+  .op__pin.p1 {
+    top: 2%;
+    left: 22%;
+  }
+  .op__pin.p3 {
+    top: auto;
+    bottom: 20%;
+    right: 0;
+  }
+  .op__cue {
+    display: none;
+  }
+  .st__stick {
+    top: var(--nav-h);
+    height: auto;
+    z-index: 3;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 10px var(--gutter) 16px;
+    background: var(--paper);
+    border-bottom: 1.5px solid var(--rule);
+  }
+  .st__rail {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-bottom: 10px;
+    scrollbar-width: none;
+  }
+  .st__rail li:not(.is-on) .st__rail-t {
+    display: none;
+  }
+  .st__rail a {
+    padding: 4px 10px;
+  }
+  .st__paper {
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+  .st__graph {
+    max-height: 30svh;
+    margin-inline: auto;
+  }
+  .st__photos {
+    width: 26%;
+    right: -2%;
+    bottom: -12%;
+  }
+  .st__pol figcaption {
+    display: none;
+  }
+  .st__ch {
+    min-height: 70svh;
+    padding: 8vh 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op__dot-ring {
+    display: none;
+  }
+  .st__pol,
+  .st__s1,
+  .st__ann {
+    transition: none;
+  }
+}

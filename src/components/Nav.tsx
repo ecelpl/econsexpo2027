@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { registerHref } from "@/content/site";
+import { SjiiLogo } from "@/components/SjiiLogo";
 
 const links = [
-  { href: "/#experiences", label: "Experiences" },
+  { href: "/#story", label: "The story" },
   { href: "/team/", label: "Team" },
   { href: "/#speakers", label: "Speakers" },
   { href: "/2026/", label: "2026" },
@@ -44,6 +45,7 @@ export function Nav() {
       </a>
       <div className="nav__bar wrap">
         <Link href="/" className="nav__brand" aria-label="Econs Expo 2027, home" onClick={() => setOpen(false)}>
+          <SjiiLogo variant="crest" className="nav__crest" />
           <span className="nav__word">Econs Expo</span>
           <span className="nav__year hand">’27</span>
         </Link>

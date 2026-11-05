@@ -194,7 +194,7 @@ export function Edition2026() {
             </h2>
             <p className="ed__note">
               This is the 2026 programme. The 2027 programme is different and is on the{" "}
-              <Link href="/#experiences">homepage</Link>.
+              <Link href="/#story">homepage</Link>.
             </p>
           </div>
           <ol className="ed__prog">
