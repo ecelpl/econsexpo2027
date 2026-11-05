@@ -19,7 +19,7 @@ export const site = {
   instagram: "https://www.instagram.com/econs_expo/",
 } as const;
 
-export const registerHref = site.registerUrl ?? "/attend/#register";
+export const registerHref = site.registerUrl ?? "/#attend";
 
 export type Experience = {
   id: "buzzer" | "pitch" | "crisis";

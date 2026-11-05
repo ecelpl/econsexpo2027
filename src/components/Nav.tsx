@@ -2,21 +2,30 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { goTo } from "@/lib/goto";
 import { registerHref } from "@/content/site";
 import { SjiiLogo } from "@/components/SjiiLogo";
 
+// Every link glides to its section on the homepage. The full pages are linked from inside each section.
 const links = [
   { href: "/#events", label: "Events" },
-  { href: "/team/", label: "Team" },
-  
-  { href: "/2026/", label: "2026" },
-  { href: "/attend/", label: "Attend" },
+  { href: "/#speakers", label: "Speakers" },
+  { href: "/#2026", label: "2026" },
+  { href: "/#team", label: "Team" },
+  { href: "/#attend", label: "Attend" },
 ];
 
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const btn = useRef<HTMLButtonElement>(null);
+  const path = usePathname();
+  // On the homepage, glide instead of jumping. Elsewhere the link opens the homepage at that section.
+  const glide = (href: string) => (e: React.MouseEvent) => {
+    setOpen(false);
+    if (path === "/" && href.startsWith("/#") && goTo(href.slice(2))) e.preventDefault();
+  };
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 24);
@@ -51,12 +60,12 @@ export function Nav() {
         </Link>
         <nav className="nav__links" aria-label="Main">
           {links.map((l) => (
-            <Link key={l.href} href={l.href}>
+            <Link key={l.href} href={l.href} onClick={glide(l.href)}>
               {l.label}
             </Link>
           ))}
         </nav>
-        <Link href={registerHref} className="btn btn--ink nav__cta">
+        <Link href={registerHref} className="btn btn--ink nav__cta" onClick={glide(registerHref)}>
           Register interest
         </Link>
         <button
@@ -73,11 +82,11 @@ export function Nav() {
       <div id="menu-sheet" className="nav__sheet" hidden={!open}>
         <nav aria-label="Mobile" className="wrap">
           {links.map((l, i) => (
-            <Link key={l.href} href={l.href} onClick={() => setOpen(false)} style={{ ["--i" as string]: i }}>
+            <Link key={l.href} href={l.href} onClick={glide(l.href)} style={{ ["--i" as string]: i }}>
               {l.label}
             </Link>
           ))}
-          <Link href={registerHref} className="btn btn--ink" onClick={() => setOpen(false)}>
+          <Link href={registerHref} className="btn btn--ink" onClick={glide(registerHref)}>
             Register interest
           </Link>
         </nav>

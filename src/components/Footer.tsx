@@ -25,9 +25,9 @@ export function Footer() {
           <h2 className="eyebrow">Explore</h2>
           <ul className="foot__list">
             <li><Link href="/#events">Events</Link></li>
-            <li><Link href="/team/">Meet the team</Link></li>
-            <li><Link href="/2026/">Econs Expo 2026</Link></li>
-            <li><Link href="/attend/">Attend</Link></li>
+            <li><Link href="/team/">Meet the whole team</Link></li>
+            <li><Link href="/2026/">Econs Expo 2026 photos</Link></li>
+            <li><Link href="/#attend">Attend</Link></li>
             <li><Link href={registerHref}>Register interest</Link></li>
           </ul>
         </div>

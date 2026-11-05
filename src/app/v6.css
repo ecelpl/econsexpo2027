@@ -716,3 +716,74 @@ body {
 .ed__hero .ed__hand {
   display: none;
 }
+
+/* ---------------- Attend (homepage) ---------------- */
+.at {
+  border-top: 1px solid var(--rule);
+}
+.at__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 110px);
+}
+.at__facts {
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+.at__facts > div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.at__facts dt {
+  font-weight: 600;
+  color: var(--green);
+}
+.at__facts dd {
+  margin: 0;
+  font-size: 18px;
+}
+.at__tbc {
+  color: var(--ink-soft);
+}
+.at__faq details {
+  border-bottom: 1px solid var(--rule);
+  padding: 16px 0;
+}
+.at__faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 18px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.at__faq summary::-webkit-details-marker {
+  display: none;
+}
+.at__faq summary::after {
+  content: "+";
+  color: var(--green);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1;
+  transition: transform 0.3s var(--ease-out);
+}
+.at__faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+.at__faq p {
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+}
+@media (max-width: 860px) {
+  .at__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .at__facts > div {
+    grid-template-columns: 90px minmax(0, 1fr);
+  }
+}

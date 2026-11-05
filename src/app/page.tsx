@@ -4,6 +4,7 @@ import { Events } from "@/components/v6/Events";
 import { Past } from "@/components/v6/Past";
 import { CoreTeam } from "@/components/CoreTeam";
 import { Closing } from "@/components/v6/Closing";
+import { Attend } from "@/components/v6/Attend";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Events />
       <Past />
       <CoreTeam />
+      <Attend />
       <Closing />
     </>
   );

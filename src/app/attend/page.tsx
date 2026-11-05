@@ -2,26 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Photo } from "@/components/Photo";
 import { experiences, site } from "@/content/site";
+import { faqs } from "@/content/faqs";
 
 export const metadata: Metadata = {
   title: "Attend",
   description: "Date, venue, who can come and how to register interest for Econs Expo 2027.",
 };
 
-const faqs = [
-  {
-    q: "Do I need to take economics?",
-    a: "No. Econs Expo is open to students who don't take economics as a subject. Curiosity is enough.",
-  },
-  {
-    q: "Is the date fixed?",
-    a: `${site.date.label} is the planned date and is still to be confirmed. We will update this page as soon as it is final.`,
-  },
-  {
-    q: "How do I sign up?",
-    a: "Registration has not opened yet. Follow us on Instagram for the announcement.",
-  },
-];
 
 export default function AttendPage() {
   return (

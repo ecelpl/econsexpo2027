@@ -12,8 +12,9 @@ export function SmoothScroll() {
     // Phones resize the viewport as the address bar slides; re-measuring every trigger then stutters.
     ScrollTrigger.config({ ignoreMobileResize: true });
     if (prefersReducedMotion()) return;
-    const lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 0.95, anchors: { offset: -72 } });
+    const lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 0.95, anchors: true });
     lenis.on("scroll", ScrollTrigger.update);
+    (window as Window & { __lenis?: Lenis }).__lenis = lenis;
     const tick = (t: number) => lenis.raf(t * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
@@ -21,6 +22,7 @@ export function SmoothScroll() {
     return () => {
       gsap.ticker.remove(tick);
       lenis.destroy();
+      delete (window as Window & { __lenis?: Lenis }).__lenis;
     };
   }, [gsap, ScrollTrigger]);
 

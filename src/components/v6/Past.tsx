@@ -82,7 +82,7 @@ export function Past() {
           </div>
         </div>
 
-        <div className="pa__speakers">
+        <div className="pa__speakers" id="speakers">
           <h3 className="pa__h3">Who spoke in 2026</h3>
           <SpeakerCards />
           <p className="pa__next">The 2027 guest speakers will be announced here once they are confirmed.</p>

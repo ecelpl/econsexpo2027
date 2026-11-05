@@ -49,7 +49,7 @@ export function CoreTeam() {
 
   return (
     <ProfileProvider>
-      <section className="crew" ref={root} aria-labelledby="crew-title">
+      <section className="crew" id="team" ref={root} aria-labelledby="crew-title">
         <div className="wrap crew__head">
           <p className="eyebrow">The people</p>
           <h2 id="crew-title" className="display display--xl">
