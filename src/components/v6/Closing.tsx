@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { Symbol } from "@/components/v6/Symbol";
 import { site, registerHref } from "@/content/site";
-import { useGsap, prefersReducedMotion } from "@/lib/motion";
+import { useGsap } from "@/lib/motion";
 
 /** The last word: the symbol again, and the one thing to do next. */
 export function Closing() {
@@ -14,10 +14,6 @@ export function Closing() {
   useEffect(() => {
     const el = root.current!;
     const paths = el.querySelectorAll(".sym path");
-    if (prefersReducedMotion()) {
-      gsap.set(paths, { drawSVG: "100%" });
-      return;
-    }
     const ctx = gsap.context(() => {
       gsap
         .timeline({ scrollTrigger: { trigger: el, start: "top 65%" } })

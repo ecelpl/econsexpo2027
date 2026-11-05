@@ -24,14 +24,11 @@ export function Opening() {
     const small = window.matchMedia("(max-width: 700px)").matches;
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
     let io: IntersectionObserver | undefined;
-    if (!reduce && !saveData) {
+    // With Reduce Motion on we keep a calm version: fades, the drawing and the reveal, but no zooms.
+    if (!saveData) {
       v.src = asset(`/media/video/hero-reel-${small ? 720 : 1280}.mp4`);
       io = new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()));
       io.observe(el);
-    }
-    if (reduce) {
-      gsap.set(el.querySelectorAll(".sym path"), { drawSVG: "100%" });
-      return () => io?.disconnect();
     }
 
     const ctx = gsap.context(() => {
@@ -49,9 +46,9 @@ export function Opening() {
       gsap
         .timeline({ scrollTrigger: { trigger: el, start: "top top", end: "bottom bottom", scrub: 0.8 } })
         .to(".o6__cue", { autoAlpha: 0, duration: 0.05 }, 0)
-        .to(".o6__mark", { scale: 0.7, yPercent: -12, autoAlpha: 0, ease: "power2.in", duration: 0.32 }, 0)
+        .to(".o6__mark", { scale: reduce ? 1 : 0.7, yPercent: reduce ? 0 : -12, autoAlpha: 0, ease: "power2.in", duration: 0.32 }, 0)
         .fromTo(".o6__frame", { clipPath: small ? "inset(50% 50% 50% 50%)" : "inset(50% 50% 50% 50%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut", duration: 0.5 }, 0.05)
-        .fromTo(".o6__frame video", { scale: 1.25 }, { scale: 1, ease: "none", duration: 0.7 }, 0.05)
+        .fromTo(".o6__frame video", { scale: reduce ? 1 : 1.25 }, { scale: 1, ease: "none", duration: 0.7 }, 0.05)
         .fromTo(".o6__line", { yPercent: 110 }, { yPercent: 0, stagger: 0.04, duration: 0.2, ease: "power3.out" }, 0.5)
         .fromTo(".o6__meta > *", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, stagger: 0.03, duration: 0.18, ease: "power2.out" }, 0.6)
         .to({}, { duration: 0.15 });

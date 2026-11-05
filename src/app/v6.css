@@ -681,32 +681,6 @@ body {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .o6 {
-    height: auto;
-  }
-  .o6__sticky {
-    position: relative;
-    height: auto;
-    display: grid;
-    grid-template-rows: 72svh 100svh;
-  }
-  .o6__mark {
-    position: relative;
-    grid-row: 1;
-  }
-  .o6__frame {
-    position: relative;
-    grid-area: 2 / 1;
-    clip-path: none;
-  }
-  .o6__copy {
-    position: relative;
-    grid-area: 2 / 1;
-    align-self: end;
-  }
-  .o6__cue {
-    display: none;
-  }
   .o6__cue-line {
     animation: none;
   }

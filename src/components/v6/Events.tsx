@@ -30,13 +30,13 @@ export function Events() {
     ro.observe(el);
     document.fonts.ready.then(layout);
 
-    if (prefersReducedMotion()) return () => ro.disconnect();
+    const reduce = prefersReducedMotion();
     const ctx = gsap.context(() => {
       rows.forEach((r) => {
         gsap
           .timeline({ scrollTrigger: { trigger: r, start: "top 72%" } })
           .fromTo(r.querySelector(".ev__photo"), { clipPath: "inset(18% 12% 18% 12%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "expo.out" }, 0)
-          .fromTo(r.querySelector(".ev__photo img"), { scale: 1.2 }, { scale: 1, duration: 1.6, ease: "expo.out" }, 0)
+          .fromTo(r.querySelector(".ev__photo img"), { scale: reduce ? 1 : 1.2 }, { scale: 1, duration: 1.6, ease: "expo.out" }, 0)
           .fromTo(r.querySelectorAll(".ev__text > *"), { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.07, ease: "power3.out" }, 0.15)
           .fromTo(r.querySelector(".ev__ink path"), { drawSVG: "0%" }, { drawSVG: "100%", duration: 1, ease: "power2.inOut" }, 0.45);
       });

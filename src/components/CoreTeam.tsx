@@ -38,11 +38,11 @@ export function CoreTeam() {
   const root = useRef<HTMLElement>(null);
   const { gsap } = useGsap();
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    const reduce = prefersReducedMotion();
     const el = root.current!;
     const ctx = gsap.context(() => {
       gsap.fromTo(".crew__row", { yPercent: 60, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.9, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: ".crew__list", start: "top 80%" } });
-      gsap.fromTo(".crew__group img", { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".crew__group", start: "top bottom", end: "bottom top", scrub: true } });
+      if (!reduce) gsap.fromTo(".crew__group img", { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".crew__group", start: "top bottom", end: "bottom top", scrub: true } });
     }, el);
     return () => ctx.revert();
   }, [gsap]);

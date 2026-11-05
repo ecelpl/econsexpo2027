@@ -20,7 +20,7 @@ export function Past() {
     const reduce = prefersReducedMotion();
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
     let io: IntersectionObserver | undefined;
-    if (!reduce && !saveData) {
+    if (!saveData) {
       io = new IntersectionObserver(
         ([e]) => {
           if (e.isIntersecting) {
@@ -32,10 +32,9 @@ export function Past() {
       );
       io.observe(v);
     }
-    if (reduce) return () => io?.disconnect();
     const ctx = gsap.context(() => {
       gsap.fromTo(".pa__reel", { clipPath: "inset(12% 8% 12% 8%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: ".pa__reel", start: "top 90%", end: "top 35%", scrub: 0.6 } });
-      gsap.fromTo(".pa__reel video", { scale: 1.15 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".pa__reel", start: "top bottom", end: "bottom top", scrub: true } });
+      if (!reduce) gsap.fromTo(".pa__reel video", { scale: 1.15 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".pa__reel", start: "top bottom", end: "bottom top", scrub: true } });
       gsap.fromTo(".pa__stats > div", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, stagger: 0.08, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: ".pa__stats", start: "top 80%" } });
     }, el);
     return () => {

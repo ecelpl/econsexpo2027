@@ -80,11 +80,6 @@ export function Intro() {
     const ctx = gsap.context(() => {
       const paths = el.querySelectorAll<SVGPathElement>(".mark__ink path");
       const notes = el.querySelectorAll<HTMLElement>(".mark__note");
-      if (reduce) {
-        gsap.set([paths, pen], { drawSVG: "100%" });
-        gsap.set(notes, { autoAlpha: 1 });
-        return;
-      }
       gsap.set([paths, pen], { drawSVG: "0%" });
       gsap.set(notes, { autoAlpha: 0, y: 6 });
       gsap.to(pen, {
@@ -98,14 +93,14 @@ export function Intro() {
           .to(m.querySelector(".mark__ink path"), { drawSVG: "100%", duration: 0.9, ease: "power2.inOut" })
           .to(m.querySelector(".mark__note"), { autoAlpha: 1, y: 0, duration: 0.4 }, "-=0.3");
       });
-      el.querySelectorAll<HTMLElement>("[data-speed]").forEach((p) => {
+      if (!reduce) el.querySelectorAll<HTMLElement>("[data-speed]").forEach((p) => {
         gsap.fromTo(
           p,
           { yPercent: Number(p.dataset.speed) },
           { yPercent: -Number(p.dataset.speed), ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "bottom top", scrub: true } },
         );
       });
-      gsap.fromTo(
+      if (!reduce) gsap.fromTo(
         ".intro__board img",
         { scale: 1.15 },
         { scale: 1, ease: "none", scrollTrigger: { trigger: ".intro__board", start: "top bottom", end: "bottom top", scrub: true } },
