@@ -128,6 +128,7 @@ export function Story() {
                 <path className="st__a" d={shapes[0].a} />
 
                 <g className="st__ann st__ann--0">
+                  <path className="st__link" d="M 452 352 C 470 290, 470 210, 428 162" />
                   <circle cx={420} cy={150} r={9} className="st__pt" />
                   <path d="M 476 62 C 494 90, 470 126, 432 144 M 432 144 L 446 128 M 432 144 L 452 146" />
                   <text x={290} y={52}>Expo day: more of both</text>
@@ -135,12 +136,14 @@ export function Story() {
                   <text x={90} y={350}>the frontier moves out</text>
                 </g>
                 <g className="st__ann st__ann--1">
+                  <path className="st__link" d="M 446 352 C 420 330, 350 320, 308 294" />
                   <path d="M 300 205 C 300 170, 290 160, 270 150" />
                   <text x={150} y={142}>buzz!</text>
                   <path d="M 480 135 C 470 110, 455 104, 440 102" />
                   <text x={330} y={98}>buzz!</text>
                 </g>
                 <g className="st__ann st__ann--2">
+                  <path className="st__link" d="M 452 340 C 500 260, 500 170, 474 110" />
                   <text x={70} y={290}>$1,000,000 to start</text>
                   {ASSETS.map((a, i) => (
                     <rect key={a.key} className="st__bar" x={330 + i * 30} y={400 - split[a.key] * 1.6} width={20} height={split[a.key] * 1.6} />
@@ -149,6 +152,7 @@ export function Story() {
                   <text x={80} y={330}>your split, defended</text>
                 </g>
                 <g className="st__ann st__ann--3">
+                  <path className="st__link" d="M 446 350 C 380 330, 300 290, 280 218" />
                   <text x={526} y={392}>D</text>
                   <text x={526} y={92}>S</text>
                   <g className="st__s1">
@@ -161,6 +165,7 @@ export function Story() {
                   </g>
                 </g>
                 <g className="st__ann st__ann--4">
+                  <path className="st__link" d="M 446 352 C 400 330, 340 290, 322 246" />
                   <text x={526} y={392}>D</text>
                   <text x={526} y={92}>S</text>
                   <path className="st__guide" d="M 315 235 L 315 410 M 315 235 L 60 235" />

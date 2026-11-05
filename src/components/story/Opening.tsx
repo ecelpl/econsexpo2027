@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { Photo } from "@/components/Photo";
 import { SjiiLogo } from "@/components/SjiiLogo";
 import { site, registerHref } from "@/content/site";
+import { asset } from "@/lib/asset";
 import { useGsap, prefersReducedMotion } from "@/lib/motion";
 import { onReady } from "@/lib/ready";
 
@@ -22,9 +23,27 @@ function cross(dx: number, sy: number) {
 }
 
 const pinned = [
-  { slug: "fireside", alt: "A guest speaker answers questions in the 2026 fireside chat", cap: "the fireside chat", cls: "p1", depth: 26 },
-  { slug: "team-table", alt: "A team smiling at their table at Econs Expo 2026", cap: "one table, one team", cls: "p2", depth: -18 },
-  { slug: "medals", alt: "Gold Econs Expo 2026 winner medals", cap: "and the medals", cls: "p3", depth: 34 },
+  {
+    slug: "fireside",
+    alt: "A guest speaker answers questions in the 2026 fireside chat",
+    cap: "the fireside chat",
+    cls: "p1",
+    depth: 26,
+  },
+  {
+    slug: "team-table",
+    alt: "A team smiling at their table at Econs Expo 2026",
+    cap: "one table, one team",
+    cls: "p2",
+    depth: -18,
+  },
+  {
+    slug: "medals",
+    alt: "Gold Econs Expo 2026 winner medals",
+    cap: "and the medals",
+    cls: "p3",
+    depth: 34,
+  },
 ];
 
 /**
@@ -50,6 +69,22 @@ export function Opening() {
     const qx = svg.querySelector<SVGTextElement>(".op__qx")!;
     const reduce = prefersReducedMotion();
 
+    // The 2026 reel runs behind the graph, decoded only while the opening is on screen.
+    const v = el.querySelector<HTMLVideoElement>(".op__frame video")!;
+    const saveData = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection?.saveData;
+    let vio: IntersectionObserver | undefined;
+    if (!reduce && !saveData) {
+      v.src = asset(
+        `/media/video/hero-reel-${window.matchMedia("(max-width: 700px)").matches ? 720 : 1280}.mp4`,
+      );
+      vio = new IntersectionObserver(([e]) =>
+        e.isIntersecting ? v.play().catch(() => {}) : v.pause(),
+      );
+      vio.observe(el);
+    }
+
     const state = { dx: 0, sy: 0 };
     let last = "";
     const draw = () => {
@@ -57,8 +92,14 @@ export function Opening() {
       if (key === last) return;
       last = key;
       const { dx, sy } = state;
-      S.setAttribute("d", `M ${X0 - 14} ${600 + sy + 14 * SLOPE} L ${X1 + 10} ${110 + sy - 10 * SLOPE}`);
-      D.setAttribute("d", `M ${X0 + dx - 14} ${110 - 14 * SLOPE} L ${X1 + dx + 10} ${600 + 10 * SLOPE}`);
+      S.setAttribute(
+        "d",
+        `M ${X0 - 14} ${600 + sy + 14 * SLOPE} L ${X1 + 10} ${110 + sy - 10 * SLOPE}`,
+      );
+      D.setAttribute(
+        "d",
+        `M ${X0 + dx - 14} ${110 - 14 * SLOPE} L ${X1 + dx + 10} ${600 + 10 * SLOPE}`,
+      );
       Sl.setAttribute("transform", `translate(${X1 + 22} ${118 + sy})`);
       Dl.setAttribute("transform", `translate(${X1 + dx + 22} ${606})`);
       const c = cross(dx, sy);
@@ -73,16 +114,26 @@ export function Opening() {
 
     if (reduce) {
       gsap.set(el.querySelectorAll(".op__ink"), { drawSVG: "100%" });
-      return;
+      return () => vio?.disconnect();
     }
 
-    const toDx = gsap.quickTo(state, "dx", { duration: 1.1, ease: "power3.out", onUpdate: draw });
-    const toSy = gsap.quickTo(state, "sy", { duration: 1.1, ease: "power3.out", onUpdate: draw });
-    const polys = Array.from(el.querySelectorAll<HTMLElement>(".op__pin")).map((p) => ({
-      x: gsap.quickTo(p, "x", { duration: 1.4, ease: "power3.out" }),
-      y: gsap.quickTo(p, "y", { duration: 1.4, ease: "power3.out" }),
-      d: Number(p.dataset.depth),
-    }));
+    const toDx = gsap.quickTo(state, "dx", {
+      duration: 1.1,
+      ease: "power3.out",
+      onUpdate: draw,
+    });
+    const toSy = gsap.quickTo(state, "sy", {
+      duration: 1.1,
+      ease: "power3.out",
+      onUpdate: draw,
+    });
+    const polys = Array.from(el.querySelectorAll<HTMLElement>(".op__pin")).map(
+      (p) => ({
+        x: gsap.quickTo(p, "x", { duration: 1.4, ease: "power3.out" }),
+        y: gsap.quickTo(p, "y", { duration: 1.4, ease: "power3.out" }),
+        d: Number(p.dataset.depth),
+      }),
+    );
 
     // With no pointer (phones, or a still mouse) the market drifts on its own.
     let idle = 0;
@@ -114,7 +165,11 @@ export function Opening() {
     if (!touch) gsap.ticker.add(drift);
     const sweep = touch
       ? gsap
-          .timeline({ paused: true, delay: 2.1, defaults: { ease: "sine.inOut", onUpdate: draw } })
+          .timeline({
+            paused: true,
+            delay: 2.1,
+            defaults: { ease: "sine.inOut", onUpdate: draw },
+          })
           .to(state, { dx: -130, sy: 30, duration: 1.4 })
           .to(state, { dx: 110, sy: -25, duration: 1.6 })
           .to(state, { dx: 0, sy: 0, duration: 1.2 })
@@ -125,31 +180,158 @@ export function Opening() {
       gsap.set(".op__ink", { drawSVG: "0%" });
       const intro = gsap
         .timeline({ paused: true, defaults: { ease: "power4.out" } })
-        .fromTo(".op__line", { yPercent: 115 }, { yPercent: 0, duration: 1.15, stagger: 0.1 }, 0)
-        .to(".op__axes", { drawSVG: "100%", duration: 0.9, ease: "power2.inOut" }, 0.15)
-        .fromTo(".op__axtext", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, stagger: 0.1 }, 0.7)
-        .to(".op__s", { drawSVG: "100%", duration: 0.9, ease: "power2.inOut" }, 0.55)
-        .to(".op__d", { drawSVG: "100%", duration: 0.9, ease: "power2.inOut" }, 0.75)
-        .fromTo(".op__lab", { autoAlpha: 0, scale: 0.6, transformOrigin: "0% 100%" }, { autoAlpha: 1, scale: 1, duration: 0.5, stagger: 0.1, ease: "back.out(2)" }, 1.2)
-        .fromTo(".op__dot", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.6, ease: "back.out(3)" }, 1.45)
-        .fromTo(".op__guide", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 1.55)
-        .to(".op__here path", { drawSVG: "100%", duration: 0.6, ease: "power2.inOut" }, 1.7)
-        .fromTo(".op__here text, .op__px, .op__qx", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 1.9)
-        .fromTo(".op__pin", { autoAlpha: 0, yPercent: -40, rotate: (i) => [-14, 12, -10][i] }, { autoAlpha: 1, yPercent: 0, rotate: (i) => [-5, 4, -3][i], duration: 1, stagger: 0.12, ease: "back.out(1.4)" }, 0.9)
-        .fromTo(".op__meta > *", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08 }, 0.6)
-        .fromTo(".op__motto", { autoAlpha: 0, rotate: -8 }, { autoAlpha: 1, rotate: -3, duration: 0.8 }, 0.5);
+        .fromTo(
+          ".op__line",
+          { yPercent: 115 },
+          { yPercent: 0, duration: 1.15, stagger: 0.1 },
+          0,
+        )
+        .to(
+          ".op__axes",
+          { drawSVG: "100%", duration: 0.9, ease: "power2.inOut" },
+          0.15,
+        )
+        .fromTo(
+          ".op__axtext",
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.4, stagger: 0.1 },
+          0.7,
+        )
+        .to(
+          ".op__s",
+          { drawSVG: "100%", duration: 0.9, ease: "power2.inOut" },
+          0.55,
+        )
+        .to(
+          ".op__d",
+          { drawSVG: "100%", duration: 0.9, ease: "power2.inOut" },
+          0.75,
+        )
+        .fromTo(
+          ".op__lab",
+          { autoAlpha: 0, scale: 0.6, transformOrigin: "0% 100%" },
+          {
+            autoAlpha: 1,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "back.out(2)",
+          },
+          1.2,
+        )
+        .fromTo(
+          ".op__dot",
+          { scale: 0, transformOrigin: "50% 50%" },
+          { scale: 1, duration: 0.6, ease: "back.out(3)" },
+          1.45,
+        )
+        .fromTo(
+          ".op__guide",
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.5 },
+          1.55,
+        )
+        .to(
+          ".op__here path",
+          { drawSVG: "100%", duration: 0.6, ease: "power2.inOut" },
+          1.7,
+        )
+        .fromTo(
+          ".op__here text, .op__px, .op__qx",
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.4 },
+          1.9,
+        )
+        .fromTo(
+          ".op__pin",
+          { autoAlpha: 0, yPercent: -40, rotate: (i) => [-14, 12, -10][i] },
+          {
+            autoAlpha: 1,
+            yPercent: 0,
+            rotate: (i) => [-5, 4, -3][i],
+            duration: 1,
+            stagger: 0.12,
+            ease: "back.out(1.4)",
+          },
+          0.9,
+        )
+        .fromTo(
+          ".op__meta > *",
+          { autoAlpha: 0, y: 18 },
+          { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08 },
+          0.6,
+        )
+        .fromTo(
+          ".op__motto",
+          { autoAlpha: 0, rotate: -8 },
+          { autoAlpha: 1, rotate: -3, duration: 0.8 },
+          0.5,
+        );
       const off = onReady(() => intro.play());
 
-      // On the way out the sheet tilts away, like turning a page in the notebook.
+      // On the way out the footage pulls back into a framed window, the graph lifts off, and the marker labels it.
       gsap
-        .timeline({ scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: 0.6 } })
-        .to(".op__copy", { yPercent: -18, autoAlpha: 0.2, ease: "none" }, 0)
-        .to(".op__board", touch ? { yPercent: 6, ease: "none" } : { yPercent: 10, rotate: -2, scale: 0.94, ease: "none" }, 0);
+        .timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.7,
+          },
+        })
+        .fromTo(
+          ".op__frame video",
+          { scale: 1.12 },
+          { scale: 1, ease: "none" },
+          0,
+        )
+        .to(
+          ".op__frame",
+          {
+            clipPath: touch ? "inset(24% 6% 26% 6%)" : "inset(16% 24% 16% 24%)",
+            ease: "none",
+          },
+          0,
+        )
+        .to(".op__shade", { opacity: 0.2, ease: "none" }, 0)
+        .to(
+          ".op__copy",
+          { yPercent: -20, autoAlpha: 0, ease: "power2.in", duration: 0.35 },
+          0,
+        )
+        .to(
+          ".op__board",
+          touch
+            ? { autoAlpha: 0, yPercent: -10, duration: 0.35 }
+            : {
+                autoAlpha: 0,
+                yPercent: -14,
+                rotate: -3,
+                scale: 0.92,
+                duration: 0.4,
+                ease: "power2.in",
+              },
+          0,
+        )
+        .to(".op__cue", { autoAlpha: 0, duration: 0.1 }, 0)
+        .fromTo(
+          ".op__note",
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.2 },
+          0.45,
+        )
+        .fromTo(
+          ".op__note path",
+          { drawSVG: "0%" },
+          { drawSVG: "100%", duration: 0.3, ease: "none" },
+          0.5,
+        );
       return () => off();
     }, el);
 
     return () => {
       io.disconnect();
+      vio?.disconnect();
       window.removeEventListener("pointermove", move);
       gsap.ticker.remove(drift);
       offSweep();
@@ -159,98 +341,174 @@ export function Opening() {
   }, [gsap]);
 
   return (
-    <section className="op paper-grid" ref={root} aria-labelledby="op-title">
-      <div className="wrap op__grid">
-        <div className="op__copy">
-          <p className="hand op__motto">Made by students, for students.</p>
-          <h1 id="op-title" className="op__title">
-            <span className="op__mask">
-              <span className="op__line">Economics,</span>
-            </span>
-            <span className="op__mask">
-              <span className="op__line op__loud">out loud.</span>
-            </span>
-          </h1>
-          <div className="op__meta">
-            <p className="op__lede">
-              One day of economics, run by students. Buzz in, pitch a portfolio and steer a country through a crisis. Every market
-              needs a buyer. <span className="hand">This one needs you.</span>
-            </p>
-            <dl className="op__facts">
-              <div>
-                <dt>Date</dt>
-                <dd>
-                  {site.date.short} <span className="tbc">to be confirmed</span>
-                </dd>
+    <section
+      className="op"
+      ref={root}
+      aria-labelledby="op-title"
+      data-theme="dark"
+    >
+      <div className="op__sticky">
+        <div className="op__frame" aria-hidden="true">
+          <video
+            muted
+            loop
+            playsInline
+            preload="none"
+            poster={asset("/media/video/hero-reel-poster.jpg")}
+          />
+          <div className="op__shade" />
+        </div>
+        <div className="wrap op__grid">
+          <div className="op__copy">
+            <p className="hand op__motto">Made by students, for students.</p>
+            <h1 id="op-title" className="op__title">
+              <span className="op__mask">
+                <span className="op__line">Economics,</span>
+              </span>
+              <span className="op__mask">
+                <span className="op__line op__loud">out loud.</span>
+              </span>
+            </h1>
+            <div className="op__meta">
+              <p className="op__lede">
+                One day of economics, run by students. Buzz in, pitch a
+                portfolio and steer a country through a crisis. Every market
+                needs a buyer. <span className="hand">This one needs you.</span>
+              </p>
+              <dl className="op__facts">
+                <div>
+                  <dt>Date</dt>
+                  <dd>
+                    {site.date.short}{" "}
+                    <span className="tbc">to be confirmed</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Who</dt>
+                  <dd>Around 150 students</dd>
+                </div>
+              </dl>
+              <div className="op__ctas">
+                <Link href={registerHref} className="btn btn--paper">
+                  Register interest
+                </Link>
+                <a href="#story" className="btn btn--line-light">
+                  Follow the story
+                </a>
               </div>
-              <div>
-                <dt>Who</dt>
-                <dd>Around 150 students</dd>
+              <div className="op__host">
+                <span>Hosted by</span>
+                <SjiiLogo />
               </div>
-            </dl>
-            <div className="op__ctas">
-              <Link href={registerHref} className="btn btn--ink">
-                Register interest
-              </Link>
-              <a href="#story" className="btn btn--line">
-                Follow the story
-              </a>
-            </div>
-            <div className="op__host">
-              <span>Hosted by</span>
-              <SjiiLogo />
             </div>
           </div>
-        </div>
 
-        <div className="op__board">
-          {pinned.map((p) => (
-            <figure key={p.slug} className={`op__pin ${p.cls}`} data-depth={p.depth}>
-              <span className="op__tape" aria-hidden="true" />
-              <Photo slug={p.slug} alt={p.alt} sizes="(max-width: 860px) 40vw, 18vw" />
-              <figcaption className="hand">2026 · {p.cap}</figcaption>
-            </figure>
-          ))}
-          <svg className="op__graph ink" viewBox="0 0 1000 700" role="img" aria-labelledby="op-graph-t">
-            <title id="op-graph-t">
-              A sketched supply and demand graph. Supply is the seats at Econs Expo, demand is you, and where they cross is marked
-              “you are here”.
-            </title>
-            <path className="op__ink op__axes" d={`M ${O.x} 30 L ${O.x} ${O.y} L 970 ${O.y} M ${O.x - 10} 44 L ${O.x} 28 L ${O.x + 10} 44 M 956 ${O.y - 10} L 972 ${O.y} L 956 ${O.y + 10}`} />
-            <text className="op__axtext" x={O.x - 18} y={34} textAnchor="end">price</text>
-            <text className="op__axtext" x={968} y={O.y + 40} textAnchor="end">quantity</text>
-            <path className="op__guide op__gx" />
-            <path className="op__guide op__gy" />
-            <path className="op__ink op__s" />
-            <path className="op__ink op__d" />
-            <g className="op__sl">
-              <text className="op__lab" x={0} y={0}>S <tspan className="op__sub">seats</tspan></text>
-            </g>
-            <g className="op__dl">
-              <text className="op__lab" x={0} y={0}>D <tspan className="op__sub">you</tspan></text>
-            </g>
-            <text className="op__px" x={O.x - 14} textAnchor="end">P*</text>
-            <text className="op__qx" y={O.y + 40} textAnchor="middle">Q*</text>
-            <g className="op__here">
-              <path className="op__ink" d="M 22 -26 C 50 -70, 96 -92, 150 -96 M 22 -26 L 26 -48 M 22 -26 L 44 -34" />
-              <text x={160} y={-88}>you are here</text>
-            </g>
-            <g className="op__dotpos">
-              <g className="op__dot">
-                <circle r={13} className="op__dot-fill" />
-                <circle r={14} className="op__dot-ring">
-                  <animate attributeName="r" values="14;38" dur="2.2s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.6;0" dur="2.2s" repeatCount="indefinite" />
-                </circle>
+          <div className="op__board">
+            {pinned.map((p) => (
+              <figure
+                key={p.slug}
+                className={`op__pin ${p.cls}`}
+                data-depth={p.depth}
+              >
+                <span className="op__tape" aria-hidden="true" />
+                <Photo
+                  slug={p.slug}
+                  alt={p.alt}
+                  sizes="(max-width: 860px) 40vw, 18vw"
+                />
+                <figcaption className="hand">2026 · {p.cap}</figcaption>
+              </figure>
+            ))}
+            <svg
+              className="op__graph ink"
+              viewBox="0 0 1000 700"
+              role="img"
+              aria-labelledby="op-graph-t"
+            >
+              <title id="op-graph-t">
+                A sketched supply and demand graph. Supply is the seats at Econs
+                Expo, demand is you, and where they cross is marked “you are
+                here”.
+              </title>
+              <path
+                className="op__ink op__axes"
+                d={`M ${O.x} 30 L ${O.x} ${O.y} L 970 ${O.y} M ${O.x - 10} 44 L ${O.x} 28 L ${O.x + 10} 44 M 956 ${O.y - 10} L 972 ${O.y} L 956 ${O.y + 10}`}
+              />
+              <text className="op__axtext" x={O.x - 18} y={34} textAnchor="end">
+                price
+              </text>
+              <text
+                className="op__axtext"
+                x={968}
+                y={O.y + 40}
+                textAnchor="end"
+              >
+                quantity
+              </text>
+              <path className="op__guide op__gx" />
+              <path className="op__guide op__gy" />
+              <path className="op__ink op__s" />
+              <path className="op__ink op__d" />
+              <g className="op__sl">
+                <text className="op__lab" x={0} y={0}>
+                  S <tspan className="op__sub">seats</tspan>
+                </text>
               </g>
-            </g>
+              <g className="op__dl">
+                <text className="op__lab" x={0} y={0}>
+                  D <tspan className="op__sub">you</tspan>
+                </text>
+              </g>
+              <text className="op__px" x={O.x - 14} textAnchor="end">
+                P*
+              </text>
+              <text className="op__qx" y={O.y + 40} textAnchor="middle">
+                Q*
+              </text>
+              <g className="op__here">
+                <path
+                  className="op__ink"
+                  d="M 22 -26 C 50 -70, 96 -92, 150 -96 M 22 -26 L 26 -48 M 22 -26 L 44 -34"
+                />
+                <text x={160} y={-88}>
+                  you are here
+                </text>
+              </g>
+              <g className="op__dotpos">
+                <g className="op__dot">
+                  <circle r={13} className="op__dot-fill" />
+                  <circle r={14} className="op__dot-ring">
+                    <animate
+                      attributeName="r"
+                      values="14;38"
+                      dur="2.2s"
+                      repeatCount="indefinite"
+                    />
+                    <animate
+                      attributeName="opacity"
+                      values="0.6;0"
+                      dur="2.2s"
+                      repeatCount="indefinite"
+                    />
+                  </circle>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div className="op__note" aria-hidden="true">
+          <span className="hand">
+            2026, in motion. This year, it’s your turn.
+          </span>
+          <svg className="ink" viewBox="0 0 160 90">
+            <path d="M 6 8 C 40 4, 96 18, 120 48 C 132 62, 140 72, 150 84 M 134 82 L 151 85 L 150 68" />
           </svg>
         </div>
+        <p className="op__cue hand" aria-hidden="true">
+          <span className="op__cue-m">move your mouse, then scroll</span>
+          <span className="op__cue-t">scroll to follow the story</span>
+        </p>
       </div>
-      <p className="op__cue hand" aria-hidden="true">
-        <span className="op__cue-m">move your mouse, then scroll</span>
-        <span className="op__cue-t">scroll to follow the story</span>
-      </p>
     </section>
   );
 }

@@ -19,7 +19,7 @@
   aspect-ratio: 300 / 347.28;
 }
 .nav__crest {
-  width: 24px;
+  width: 30px;
   align-self: center;
   margin-right: 6px;
   color: var(--green);
@@ -37,10 +37,124 @@
 
 /* ---------------- Opening ---------------- */
 .op {
-  min-height: 100svh;
-  padding: calc(var(--nav-h) + 3vh) 0 9vh;
+  position: relative;
+  height: 210svh;
+  background: var(--forest);
+  color: var(--paper);
+}
+.op__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
   display: flex;
   align-items: center;
+  padding: calc(var(--nav-h) + 2vh) 0 6vh;
+  contain: paint;
+  background-image: var(--noise), linear-gradient(rgba(241, 244, 239, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(241, 244, 239, 0.05) 1px, transparent 1px);
+  background-size: 180px 180px, 36px 36px, 36px 36px;
+}
+.op__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(0% 0% 0% 0%);
+  background: #000;
+  will-change: clip-path;
+}
+.op__frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+.op__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 31, 23, 0.9) 0%, rgba(11, 31, 23, 0.72) 38%, rgba(11, 31, 23, 0.5) 70%, rgba(11, 31, 23, 0.62) 100%);
+  will-change: opacity;
+  transform: translateZ(0);
+}
+.op__grid,
+.op__note,
+.op .op__cue {
+  position: relative;
+  z-index: 2;
+}
+.op__note {
+  position: absolute;
+  left: 5vw;
+  top: 30svh;
+  width: min(17vw, 250px);
+  opacity: 0;
+  pointer-events: none;
+}
+.op__note .hand {
+  display: block;
+  font-size: clamp(18px, 1.5vw, 24px);
+  line-height: 1.2;
+  color: var(--marker-light);
+  rotate: -4deg;
+}
+.op__note svg {
+  width: 72%;
+  margin: 6px 0 0 30%;
+}
+.op__note path {
+  stroke: var(--marker-light);
+}
+.op .op__motto,
+.op .op__lede .hand {
+  color: var(--marker-light);
+}
+.op .op__loud {
+  color: var(--mint);
+}
+.op .op__facts dt {
+  color: #a9bbb2;
+}
+.op .tbc {
+  color: var(--marker-light);
+}
+.op .op__host {
+  color: #a9bbb2;
+}
+.op .op__host .sjii {
+  color: var(--paper);
+}
+.op .op__graph path {
+  stroke: rgba(241, 244, 239, 0.85);
+}
+.op .op__graph .op__s {
+  stroke: var(--mint);
+}
+.op .op__graph .op__d,
+.op .op__graph .op__here path {
+  stroke: var(--marker-light);
+}
+.op .op__graph .op__guide {
+  stroke: rgba(241, 244, 239, 0.55);
+}
+.op .op__graph text {
+  fill: #c9d8cf;
+}
+.op .op__sl .op__lab {
+  fill: var(--mint);
+}
+.op .op__dl .op__lab,
+.op .op__graph .op__here text {
+  fill: var(--marker-light);
+}
+.op .op__graph .op__px,
+.op .op__graph .op__qx {
+  fill: var(--paper);
+}
+.op .op__dot-fill {
+  fill: var(--marker-light) !important;
+}
+.op .op__dot-ring {
+  stroke: var(--marker-light) !important;
 }
 .op__grid {
   display: grid;
@@ -462,14 +576,44 @@
 
 @media (max-width: 860px) {
   .op {
-    padding-top: calc(var(--nav-h) + 24px);
+    height: 190svh;
+  }
+  .op__sticky {
+    align-items: flex-start;
+    padding-top: calc(var(--nav-h) + 16px);
+  }
+  .op__title {
+    font-size: 17vw;
+  }
+  .op__host {
+    margin-top: 18px;
+  }
+  .op__facts {
+    margin: 16px 0 18px;
+  }
+  .op__note {
+    display: none;
   }
   .op__grid,
   .st__grid {
     grid-template-columns: minmax(0, 1fr);
   }
+  /* On phones the graph draws itself behind the headline instead of below it. */
   .op__board {
-    margin-top: 12px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 3svh;
+    z-index: 1;
+    opacity: 0.38;
+    pointer-events: none;
+  }
+  .op__copy {
+    position: relative;
+    z-index: 2;
+  }
+  .op__pin {
+    display: none;
   }
   .op__pin {
     width: 96px;
@@ -660,4 +804,11 @@
 .ed__thumb:hover img,
 .ed__thumb:focus-visible img {
   transform: none;
+}
+
+/* The marker runs from the 2026 print to the point on the graph it explains. */
+.st__graph .st__link {
+  stroke: var(--marker);
+  stroke-width: 2.2;
+  stroke-opacity: 0.8;
 }
