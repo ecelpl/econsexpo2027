@@ -41,14 +41,16 @@ export function TeamWall() {
             <Photo slug="committee-2027" alt="The Econs Expo 2027 committee together under the courtyard umbrellas" sizes="100vw" pos="50% 55%" priority />
           </div>
           <div className="wrap tm-hero__copy">
-            <p className="eyebrow">Meet the team</p>
-            <h1 id="tm-title" className="display display--xl">
-              {members.length} students. <span className="hand tm-hero__hand">One very long to-do list.</span>
-            </h1>
-            <p className="tm-hero__body">
-              Econs Expo is planned and run by students at SJI International. Choose anyone to read who they are and what
-              they do.
-            </p>
+            <div className="tm-hero__panel">
+              <p className="eyebrow">Meet the team</p>
+              <h1 id="tm-title" className="display display--xl tm-hero__title">
+                {members.length} students. <span className="hand tm-hero__hand">One very long to-do list.</span>
+              </h1>
+              <p className="tm-hero__body">
+                Econs Expo is planned and run by students at SJI International. Choose anyone to read who they are and
+                what they do.
+              </p>
+            </div>
           </div>
         </section>
 

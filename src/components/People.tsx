@@ -68,10 +68,15 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
                 {member.name}
               </h2>
               <p className="profile__role hand">{member.role}</p>
+              {member.quote && (
+                <blockquote className="profile__quote">
+                  <p>“{member.quote}”</p>
+                </blockquote>
+              )}
               {member.intro ? (
                 <p className="profile__intro">{member.intro}</p>
               ) : (
-                <p className="profile__intro profile__intro--none">A short introduction is on its way.</p>
+                !member.quote && <p className="profile__intro profile__intro--none">A short introduction is on its way.</p>
               )}
               {member.links && member.links.length > 0 && (
                 <ul className="profile__links">
@@ -124,6 +129,7 @@ export function Portrait({ member, size = "md", className = "", style }: Portrai
       </span>
       <span className="portrait__name">{member.name}</span>
       <span className="portrait__role hand">{member.role}</span>
+      {member.quote && <span className="portrait__quote">“{member.quote}”</span>}
     </button>
   );
 }
