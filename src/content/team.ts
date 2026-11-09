@@ -48,9 +48,9 @@ export const members: Member[] = [
   { slug: "miguel", name: "Miguel Saclolo", role: "Finance & Logistics", group: "finance", photo: "miguel", quote: "Do or do not. There is no try.", links: [{ kind: "linkedin", href: "https://www.linkedin.com/in/miguel-saclolo-48b802449/" }] },
 
   { slug: "gopal", name: "Gopal Nath", role: "Academics & Creativity", group: "academics", photo: "gopal", quote: "Talent and hard work win", links: [{ kind: "linkedin", href: "https://www.linkedin.com/in/gopal-nath-078a00434/" }] },
-  // Listed in the Marketing doc but without an Instagram slide yet. Shown without a photo.
-  { slug: "sara", name: "Sara Mahajan", role: "Academics & Creativity", group: "academics", check: "No Instagram slide yet" },
-  { slug: "emma", name: "Emma Song", role: "Academics & Creativity", group: "academics", check: "No Instagram slide yet" },
+  { slug: "sara", name: "Sara Mahajan", role: "Academics & Creativity", group: "academics", photo: "sara" },
+  { slug: "emma", name: "Emma Song", role: "Academics & Creativity", group: "academics", photo: "emma" },
+  // Listed in the Marketing doc; no headshot yet, so shown without a photo.
   { slug: "natasha", name: "Natasha Malhotra", role: "Academics & Creativity", group: "academics", check: "Not on the Master Control sheet or Instagram yet" },
 ];
 
