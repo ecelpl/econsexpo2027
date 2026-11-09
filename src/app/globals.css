@@ -1649,6 +1649,13 @@ html.ee-intro .ld {
   font-size: 16px;
   line-height: 1.2;
 }
+.portrait__quote {
+  margin-top: 6px;
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
 .portrait--lg .portrait__name {
   font-size: 22px;
 }
@@ -1744,6 +1751,20 @@ html.ee-intro .ld {
   font-size: 22px;
   margin: 0 0 18px;
   line-height: 1.2;
+}
+.profile__quote {
+  margin: 0 0 22px;
+  padding-left: 16px;
+  border-left: 3px solid var(--green);
+}
+.profile__quote p {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 .profile__intro {
   margin: 0 0 18px;
@@ -2303,40 +2324,53 @@ html.ee-intro .ld {
   height: 100%;
   object-fit: cover;
 }
+/* The title sits on a paper panel that rises out of the page into the photo. Its bottom is
+   open, so the panel and the page below read as one sheet. */
 .tm-hero__copy {
   position: relative;
-  margin-top: clamp(-140px, -10vw, -60px);
+  margin-top: clamp(-150px, -11vw, -56px);
 }
-.tm-hero__copy > * {
+.tm-hero__panel {
   position: relative;
-}
-.tm-hero__copy::before {
-  content: "";
-  position: absolute;
-  left: var(--gutter);
-  top: 0;
-  bottom: -24px;
-  width: min(980px, calc(100% - 2 * var(--gutter)));
+  width: fit-content;
+  max-width: 100%;
+  margin-left: calc(-1 * clamp(20px, 3vw, 48px));
+  padding: clamp(22px, 3vw, 44px) clamp(20px, 3vw, 48px) 0;
   background: var(--paper);
-  border-radius: 0 10px 0 0;
+  border-radius: 14px 14px 0 0;
 }
-.tm-hero__copy .eyebrow {
-  padding-top: 28px;
+.tm-hero__panel .eyebrow {
+  margin-bottom: clamp(14px, 1.6vw, 22px);
 }
-.tm-hero__copy .eyebrow,
-.tm-hero__copy h1,
-.tm-hero__copy p {
-  padding-right: 24px;
+.tm-hero__title {
+  font-size: clamp(46px, 7.4vw, 120px);
+  line-height: 0.92;
+  padding-bottom: 0.06em;
 }
-.tm-hero__hand {
+.display .tm-hero__hand {
   display: block;
-  font-size: 0.5em;
-  margin-top: 10px;
+  font-size: 0.6em;
+  line-height: 1.02;
+  margin-top: 0.04em;
+  letter-spacing: -0.02em;
 }
 .tm-hero__body {
-  margin: 22px 0 0;
+  margin: clamp(18px, 2vw, 26px) 0 0;
   max-width: 44ch;
   font-size: 19px;
+}
+@media (max-width: 640px) {
+  .tm-hero__panel {
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    max-width: none;
+    width: auto;
+    padding-inline: var(--gutter);
+    border-radius: 12px 12px 0 0;
+  }
+  .tm-hero__body {
+    font-size: 17px;
+  }
 }
 .tm-group {
   padding-block: clamp(72px, 10vh, 120px) 0;

@@ -7,12 +7,12 @@ import { goTo } from "@/lib/goto";
 import { registerHref } from "@/content/site";
 import { SjiiLogo } from "@/components/SjiiLogo";
 
-// Every link glides to its section on the homepage. The full pages are linked from inside each section.
+// Links glide to their section on the homepage, except Team, which opens the full team page.
 const links = [
   { href: "/#events", label: "Events" },
   { href: "/#speakers", label: "Speakers" },
   { href: "/#2026", label: "2026" },
-  { href: "/#team", label: "Team" },
+  { href: "/team", label: "Team" },
   { href: "/#attend", label: "Attend" },
 ];
 
