@@ -1769,10 +1769,6 @@ html.ee-intro .ld {
 .profile__intro {
   margin: 0 0 18px;
 }
-.profile__intro--none {
-  color: var(--ink-soft);
-  font-style: italic;
-}
 .profile__links {
   list-style: none;
   padding: 0;

@@ -73,11 +73,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
                   <p>“{member.quote}”</p>
                 </blockquote>
               )}
-              {member.intro ? (
-                <p className="profile__intro">{member.intro}</p>
-              ) : (
-                !member.quote && <p className="profile__intro profile__intro--none">A short introduction is on its way.</p>
-              )}
+              {member.intro && <p className="profile__intro">{member.intro}</p>}
               {member.links && member.links.length > 0 && (
                 <ul className="profile__links">
                   {member.links.map((l) => (
