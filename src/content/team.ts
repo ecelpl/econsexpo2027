@@ -48,7 +48,7 @@ export const members: Member[] = [
   { slug: "miguel", name: "Miguel Saclolo", role: "Finance & Logistics", group: "finance", photo: "miguel", quote: "Do or do not. There is no try.", links: [{ kind: "linkedin", href: "https://www.linkedin.com/in/miguel-saclolo-48b802449/" }] },
 
   { slug: "gopal", name: "Gopal Nath", role: "Academics & Creativity", group: "academics", photo: "gopal", quote: "Talent and hard work win", links: [{ kind: "linkedin", href: "https://www.linkedin.com/in/gopal-nath-078a00434/" }] },
-  { slug: "sara", name: "Sara Mahajan", role: "Academics & Creativity", group: "academics", photo: "sara" },
+  { slug: "sara", name: "Sara Mahajan", role: "Academics & Creativity", group: "academics", photo: "sara", links: [{ kind: "linkedin", href: "https://www.linkedin.com/in/sara-mahajan-6b90793a9" }] },
   { slug: "emma", name: "Emma Song", role: "Academics & Creativity", group: "academics", photo: "emma" },
 ];
 
